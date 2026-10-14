@@ -6,6 +6,8 @@
 
 **홈페이지: https://kang-t.github.io/edufine-assistant-release/** — 무엇을 하는 프로그램인지, 화면과 설치 방법을 볼 수 있습니다.
 
+**사용 안내: https://kang-t.github.io/edufine-assistant-release/guide.html** — 설치, 백신이 막을 때, 기능별 사용법, 로컬 AI, 문제 해결.
+
 **[최신 판 내려받기 →](https://github.com/Kang-T/edufine-assistant-release/releases/latest)**
 
 위 페이지 아래쪽 **Assets** 에서 `EdufineAssistant_Setup_…zip` 을 누르세요.

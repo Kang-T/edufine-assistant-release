@@ -86,6 +86,9 @@ img { max-width: 100%; height: auto; display: block; }
 .cta { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; }
 .dlmeta { margin-top: 14px; font-size: 14px; color: var(--sub); }
 .dlmeta b { color: var(--text); font-weight: 600; }
+.dlmeta.hash { margin-top: 4px; font-size: 12.5px; color: var(--faint); }
+.dlmeta.hash code { font-family: ui-monospace, Consolas, monospace; word-break: break-all; }
+.link { background: none; border: 0; padding: 0; color: var(--accent); font: inherit; cursor: pointer; }
 .mobile-note { display: none; margin-top: 18px; padding: 14px 16px; border-radius: 10px; background: var(--y-bg); color: var(--y-tx); font-size: 15px; line-height: 1.6; }
 .mobile-note .url { font-weight: 700; word-break: break-all; }
 .mobile-note button { margin-top: 8px; }
@@ -212,6 +215,7 @@ footer .note { flex-basis: 100%; color: var(--faint); font-size: 13px; }
       <a href="#install">설치</a>
       <a href="#safety">지키는 것</a>
       <a href="#faq">자주 묻는 것</a>
+      <a href="guide.html">사용 안내</a>
       <a class="btn primary sm js-dl" href="https://github.com/Kang-T/edufine-assistant-release/releases/latest">내려받기</a>
     </nav>
   </div>
@@ -230,9 +234,10 @@ footer .note { flex-basis: 100%; color: var(--faint); font-size: 13px; }
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"/><path d="m7 11 5 5 5-5"/><path d="M5 20h14"/></svg>
             내려받기 (Windows)
           </a>
-          <a class="btn ghost lg" href="#install">설치 방법</a>
+          <a class="btn ghost lg" href="guide.html">사용 안내</a>
         </div>
         <div class="dlmeta"><b id="ver">최신 판</b> · 무료 · <span id="size">zip 파일</span> · Windows 10·11 · Chrome 필요</div>
+        <div class="dlmeta hash" id="hashRow" hidden>파일 지문(SHA-256) <code id="hash"></code> <button class="link" id="copyHash" type="button">복사</button> · <a href="guide.html#install">확인하는 법</a></div>
         <div class="mobile-note">
           PC 에서 쓰는 프로그램입니다. 학교 PC 에서 이 주소를 여세요.<br>
           <span class="url">kang-t.github.io/edufine-assistant-release</span><br>
@@ -371,6 +376,7 @@ footer .note { flex-basis: 100%; color: var(--faint); font-size: 13px; }
         </div>
       </div>
       <div class="tip"><b>파란 「Windows의 PC 보호」 창이 뜨면</b> — <span class="kbd">추가 정보</span> → <span class="kbd">실행</span>을 누르세요. 돈을 내고 받는 서명 인증서가 없는 무료 프로그램이라 뜨는 안내이고, 처음 설치할 때만 뜹니다. 2단계에서 「차단 해제」를 했다면 뜨지 않습니다.</div>
+      <div class="tip"><b>백신(V3·알약·Avast 등)이 막으면</b> — 백신을 지우거나 끄지 말고 비서 폴더만 예외로 등록하세요. 백신별 방법은 <a href="guide.html#antivirus">사용 안내 › 백신이 막을 때</a>에 있습니다. 처음부터 끝까지 차례로 보려면 <a href="guide.html">사용 안내</a>를 여세요.</div>
     </div>
   </section>
 
@@ -406,6 +412,14 @@ footer .note { flex-basis: 100%; color: var(--faint); font-size: 13px; }
         <details>
           <summary>파란 「Windows의 PC 보호」 창은 왜 뜨나요?</summary>
           <div class="a"><p>새로 나온 프로그램이 돈을 내고 받는 '코드 서명 인증서' 없이 배포되면 Windows 가 한 번 더 묻는 창입니다. 바이러스가 있다는 뜻은 아닙니다.</p><p>zip 파일 속성에서 「차단 해제」를 하고 풀면 뜨지 않고, 떴다면 <span class="kbd">추가 정보</span> → <span class="kbd">실행</span>을 누르면 됩니다. 자동 업데이트 때는 뜨지 않습니다.</p></div>
+        </details>
+        <details>
+          <summary>백신이 내려받기나 실행을 막아요</summary>
+          <div class="a"><p>새로 나온 무료 프로그램이라 백신이 "처음 보는 프로그램"으로 막는 것이고, 바이러스가 있다는 뜻은 아닙니다. 새 판마다 백신 회사에 오진 신고를 하고 있습니다.</p><p>학교 PC 의 V3 같은 지정 백신은 지우지 말고, 비서 폴더만 예외로 등록하세요. 방법은 <a href="guide.html#antivirus">사용 안내 › 백신이 막을 때</a>에 있습니다. 개인이 깐 백신과 학교 백신이 함께 돌고 있다면 하나만 남기는 것이 좋습니다.</p></div>
+        </details>
+        <details>
+          <summary>AI 요약은 어떻게 쓰나요?</summary>
+          <div class="a"><p><span class="path">⚙ 설정 › AI</span> 에서 <span class="kbd">로컬 AI 설치 (한 번에)</span>를 누르면 프로그램과 AI 모델을 차례로 받아 설치합니다(약 3GB, 10~30분). 공문 내용은 PC 밖으로 나가지 않습니다.</p><p>같은 탭 맨 위의 「이 PC 점검」에서 메모리·디스크가 넉넉한지 먼저 볼 수 있습니다. AI 가 없어도 다른 기능은 모두 됩니다.</p></div>
         </details>
         <details>
           <summary>수업 중에 Chrome 창이 튀어나오지 않나요?</summary>
@@ -453,6 +467,7 @@ footer .note { flex-basis: 100%; color: var(--faint); font-size: 13px; }
   <div class="wrap">
     <span><b>에듀파인 비서</b> · 만든 사람 teacher.K</span>
     <span class="links">
+      <a href="guide.html">사용 안내</a>
       <a href="https://github.com/Kang-T/edufine-assistant-release/releases">지난 판 모두 보기</a>
       <a href="https://docs.google.com/forms/d/e/1FAIpQLSdUCnC8kuIMQXorNRwCTgaxs701BuuDfP_lrKgy0Xgsm_upQA/viewform" target="_blank" rel="noopener">의견 보내기</a>
       <a href="https://github.com/Kang-T/edufine-assistant-release">저장소</a>
@@ -476,6 +491,15 @@ footer .note { flex-basis: 100%; color: var(--faint); font-size: 13px; }
       var d = rel.published_at ? new Date(rel.published_at) : null;
       document.getElementById('ver').textContent = v + (d ? ' (' + (d.getMonth() + 1) + '월 ' + d.getDate() + '일)' : '');
       document.getElementById('size').textContent = '약 ' + Math.round(zip.size / 1048576) + 'MB';
+      // 파일 지문: GitHub 가 계산해 둔 SHA-256 (받은 파일이 중간에 바뀌지 않았는지 확인용)
+      if (zip.digest && /^sha256:/.test(zip.digest)) {
+        var h = zip.digest.slice(7);
+        document.getElementById('hash').textContent = h;
+        document.getElementById('hashRow').hidden = false;
+        document.getElementById('copyHash').onclick = function () {
+          if (navigator.clipboard) navigator.clipboard.writeText(h).then(function () { var t = document.getElementById('toast'); t.textContent = '지문을 복사했습니다'; t.classList.add('on'); setTimeout(function () { t.classList.remove('on'); }, 1800); });
+        };
+      }
     })
     .catch(function () {});
 })();

@@ -1,0 +1,780 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>사용 안내 · 에듀파인 비서</title>
+<meta name="description" content="에듀파인 비서 사용 안내서 — 설치, 백신이 막을 때, 처음 설정, 기능별 사용법, 로컬 AI, PC 점검, 문제 해결">
+<meta property="og:type" content="article">
+<meta property="og:title" content="에듀파인 비서 사용 안내">
+<meta property="og:description" content="연수를 듣지 않아도 혼자 설치하고 쓸 수 있게 정리한 안내서">
+<meta property="og:image" content="https://kang-t.github.io/edufine-assistant-release/img/og.png">
+<meta property="og:url" content="https://kang-t.github.io/edufine-assistant-release/guide.html">
+<link rel="icon" href="img/icon.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+/* 홈페이지(index.html)와 같은 노션형 색 */
+:root {
+  --bg: #ffffff; --panel: #f7f7f5; --card: #ffffff; --text: #37352f; --sub: #787774; --faint: #a5a29a; --line: #ededec;
+  --accent: #2383e2; --accent-hover: #1a73cc; --accent-tx: #ffffff; --accent-weak: #e7f0fa; --accent-weak-tx: #1f6fbf;
+  --g-bg: #dbeddb; --g-tx: #1c3829; --y-bg: #fdecc8; --y-tx: #402c1b; --r-bg: #ffe2dd; --r-tx: #5d1715;
+  --font: "Pretendard Variable", Pretendard, "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #191919; --panel: #202020; --card: #232323; --text: #e6e6e4; --sub: #9b9a97; --faint: #6f6e69; --line: #2f2f2f;
+    --accent: #529cca; --accent-hover: #64a9d6; --accent-weak: #233847; --accent-weak-tx: #a8cbe4;
+    --g-bg: #2b3b2e; --g-tx: #b5d8b9; --y-bg: #4a3a22; --y-tx: #f0d39c; --r-bg: #4a2a26; --r-tx: #f2b8ae;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #191919; --panel: #202020; --card: #232323; --text: #e6e6e4; --sub: #9b9a97; --faint: #6f6e69; --line: #2f2f2f;
+  --accent: #529cca; --accent-hover: #64a9d6; --accent-weak: #233847; --accent-weak-tx: #a8cbe4;
+  --g-bg: #2b3b2e; --g-tx: #b5d8b9; --y-bg: #4a3a22; --y-tx: #f0d39c; --r-bg: #4a2a26; --r-tx: #f2b8ae;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 76px; }
+body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--font); font-size: 16.5px; line-height: 1.75;
+  word-break: keep-all; overflow-wrap: anywhere; -webkit-font-smoothing: antialiased; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { color: var(--accent-hover); text-decoration: underline; }
+img { max-width: 100%; height: auto; display: block; }
+.wrap { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+.kbd { display: inline-block; padding: 0 7px; border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 5px; background: var(--card);
+  font-size: .88em; line-height: 1.6; white-space: nowrap; }
+.path { font-weight: 600; }
+code { font-family: ui-monospace, Consolas, "D2Coding", monospace; font-size: .9em; background: var(--panel); padding: 1px 6px; border-radius: 4px; }
+
+/* 위 막대 */
+.top { position: sticky; top: 0; z-index: 10; background: color-mix(in srgb, var(--bg) 90%, transparent);
+  backdrop-filter: saturate(1.4) blur(10px); -webkit-backdrop-filter: saturate(1.4) blur(10px); border-bottom: 1px solid var(--line); }
+.top .wrap { display: flex; align-items: center; gap: 22px; height: 60px; }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 17px; color: var(--text); }
+.brand:hover { color: var(--text); text-decoration: none; }
+.brand img { width: 28px; height: 28px; }
+.brand small { font-weight: 500; color: var(--sub); font-size: 15px; }
+.nav { display: flex; gap: 18px; margin-left: auto; font-size: 15px; align-items: center; }
+.nav a { color: var(--sub); }
+.nav a:hover { color: var(--text); text-decoration: none; }
+.btn { display: inline-flex; align-items: center; gap: 6px; border-radius: 8px; font-weight: 600; font-family: inherit; cursor: pointer;
+  border: 1px solid transparent; font-size: 14px; padding: 7px 14px; }
+.btn.primary { background: var(--accent); color: var(--accent-tx); }
+.btn.primary:hover { background: var(--accent-hover); color: var(--accent-tx); text-decoration: none; }
+.btn.ghost { background: var(--card); color: var(--text); border-color: var(--line); }
+.btn.ghost:hover { background: var(--panel); text-decoration: none; }
+
+/* 몸 */
+.layout { display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: 28px 48px; padding: 28px 0 80px; }
+.toc { position: sticky; top: 84px; align-self: start; max-height: calc(100vh - 100px); overflow: auto; font-size: 14.5px; padding-right: 6px; }
+.toc b { display: block; font-size: 12.5px; color: var(--faint); letter-spacing: .04em; margin: 16px 0 6px; }
+.toc b:first-child { margin-top: 0; }
+.toc a { display: block; color: var(--sub); padding: 3px 10px; border-left: 2px solid transparent; line-height: 1.5; }
+.toc a:hover { color: var(--text); text-decoration: none; }
+.toc a.on { color: var(--accent); border-left-color: var(--accent); font-weight: 600; }
+
+article { max-width: 780px; }
+.lead-box { grid-column: 1 / -1; background: var(--panel); border-radius: 12px; padding: 22px 24px; }
+.lead-box h1 { font-size: clamp(28px, 3.4vw, 36px); line-height: 1.3; margin: 0 0 10px; letter-spacing: -0.015em; }
+.lead-box p { margin: 0 0 8px; color: var(--sub); }
+.lead-box .acts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+
+section { padding: 30px 0 6px; border-top: 1px solid var(--line); margin-top: 30px; }
+section:first-of-type { border-top: 0; margin-top: 14px; }
+h2 { font-size: 26px; line-height: 1.35; margin: 0 0 6px; letter-spacing: -0.01em; }
+h2 .no { color: var(--faint); font-weight: 700; margin-right: 8px; }
+.one { color: var(--sub); margin: 0 0 18px; font-size: 16.5px; }
+h3 { font-size: 19px; margin: 26px 0 8px; }
+p { margin: 0 0 12px; }
+ol, ul { margin: 0 0 14px; padding-left: 24px; }
+li { margin: 5px 0; }
+li > ul, li > ol { margin: 4px 0 6px; }
+.small { font-size: 14.5px; color: var(--sub); }
+
+.note { border-radius: 10px; padding: 14px 16px; margin: 14px 0; font-size: 15.5px; background: var(--panel); }
+.note > b:first-child { display: block; margin-bottom: 2px; }
+.note p:last-child, .note ul:last-child, .note ol:last-child { margin-bottom: 0; }
+.note.warn { background: var(--y-bg); color: var(--y-tx); }
+.note.stop { background: var(--r-bg); color: var(--r-tx); }
+.note.ok { background: var(--g-bg); color: var(--g-tx); }
+.note.warn a, .note.stop a, .note.ok a { color: inherit; text-decoration: underline; }
+
+figure { margin: 16px 0 20px; }
+figure img { border-radius: 10px; border: 1px solid var(--line); }
+figcaption { font-size: 13.5px; color: var(--sub); margin-top: 6px; }
+
+table { width: 100%; border-collapse: collapse; margin: 10px 0 18px; font-size: 15px; }
+th, td { text-align: left; vertical-align: top; padding: 9px 10px; border-bottom: 1px solid var(--line); }
+th { font-size: 13.5px; color: var(--sub); font-weight: 600; background: var(--panel); }
+td:first-child { font-weight: 600; white-space: nowrap; }
+
+details { border: 1px solid var(--line); border-radius: 10px; margin: 10px 0; background: var(--card); }
+details summary { cursor: pointer; padding: 12px 16px; font-weight: 600; list-style: none; position: relative; padding-right: 40px; }
+details summary::-webkit-details-marker { display: none; }
+details summary::after { content: "+"; position: absolute; right: 16px; top: 50%; transform: translateY(-50%); color: var(--faint); font-size: 20px; font-weight: 400; }
+details[open] summary::after { content: "−"; }
+details .in { padding: 0 16px 14px; }
+details .in > :last-child { margin-bottom: 0; }
+
+.av { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 12px 0 18px; }
+.av .c { border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; background: var(--card); }
+.av .c h4 { margin: 0 0 6px; font-size: 16px; }
+.av .c ol { padding-left: 20px; margin: 0; font-size: 15px; }
+.av .c p { font-size: 14px; color: var(--sub); margin: 8px 0 0; }
+
+.foot { border-top: 1px solid var(--line); padding: 28px 0 44px; font-size: 14px; color: var(--sub); }
+.foot .wrap { display: flex; flex-wrap: wrap; gap: 8px 22px; }
+
+@media (max-width: 960px) {
+  .layout { grid-template-columns: minmax(0, 1fr); gap: 18px; padding-top: 18px; }
+  .toc { position: static; max-height: none; border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; margin-bottom: 18px;
+    columns: 2; column-gap: 20px; }
+  .toc b { break-after: avoid; }
+  .nav .hide-sm { display: none; }
+}
+@media (max-width: 640px) {
+  .wrap { padding: 0 16px; }
+  body { font-size: 16px; }
+  .toc { columns: 1; }
+  .av { grid-template-columns: minmax(0, 1fr); }
+  td:first-child { white-space: normal; }
+  h2 { font-size: 23px; }
+}
+
+/* 인쇄·PDF 저장: 목차·위 막대를 빼고 장마다 이어 붙인다 */
+@media print {
+  :root { --bg: #fff; --panel: #f5f5f3; --card: #fff; --text: #222; --sub: #555; --line: #ddd; }
+  .top, .toc, .lead-box .acts, .foot, .noprint { display: none !important; }
+  .layout { display: block; padding: 0; }
+  article { max-width: none; }
+  body { font-size: 11.5pt; line-height: 1.6; }
+  section { break-inside: auto; padding-top: 14px; margin-top: 14px; }
+  h2, h3 { break-after: avoid; }
+  figure, .note, table, .av .c { break-inside: avoid; }
+  details { border: 0; }
+  details .in { padding: 0; }
+  details summary::after, details[open] summary::after { content: ""; }
+  a { color: inherit; }
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="./"><img src="img/icon.png" alt="" width="28" height="28">에듀파인 비서 <small>사용 안내</small></a>
+    <nav class="nav">
+      <a class="hide-sm" href="./">홈페이지</a>
+      <a class="hide-sm" href="#trouble">문제 해결</a>
+      <a class="btn primary" href="https://github.com/Kang-T/edufine-assistant-release/releases/latest">내려받기</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap layout">
+  <div class="lead-box">
+      <h1>에듀파인 비서 사용 안내</h1>
+      <p>연수를 듣지 않아도 혼자 설치하고 쓸 수 있게 정리했습니다. 처음이면 1~5장을 차례로 따라 하시고, 나머지는 필요할 때 찾아 보세요.</p>
+      <p class="small">비서 화면 위쪽 <b>?</b> 단추를 누르면 언제든 이 안내서가 열립니다. 내용은 새 판이 나올 때마다 이 페이지에서 고칩니다.</p>
+      <div class="acts">
+        <button class="btn ghost" type="button" onclick="window.print()">🖨 인쇄 · PDF로 저장</button>
+        <a class="btn ghost" href="./">홈페이지로</a>
+      </div>
+    </div>
+
+  <nav class="toc" id="toc" aria-label="목차">
+    <b>시작하기</b>
+    <a href="#before">1. 시작 전에</a>
+    <a href="#install">2. 설치</a>
+    <a href="#antivirus">3. 백신이 막을 때</a>
+    <a href="#setup">4. 처음 설정</a>
+    <a href="#morning">5. 아침에 할 일</a>
+    <b>날마다 쓰기</b>
+    <a href="#screen">6. 화면 둘러보기</a>
+    <a href="#check">7. 공문 확인·★·기한</a>
+    <a href="#process">8. 문서처리·공람 지정</a>
+    <a href="#tidy">9. 공람대기 정리</a>
+    <a href="#bokmu">10. 복무 신청</a>
+    <a href="#gian">11. 기안</a>
+    <a href="#search">12. 지난 공문 찾기</a>
+    <a href="#training">13. 연수 관리</a>
+    <a href="#off">14. 컴퓨터 자동 종료</a>
+    <b>더 알기</b>
+    <a href="#ai">15. 로컬 AI</a>
+    <a href="#pc">16. 이 PC 점검</a>
+    <a href="#settings">17. 설정 한눈에</a>
+    <a href="#packs">18. 업무 팩</a>
+    <a href="#calendar">19. 구글 캘린더</a>
+    <a href="#update">20. 업데이트·지우기</a>
+    <a href="#trouble">21. 문제가 생겼을 때</a>
+    <a href="#promise">22. 비서가 지키는 것</a>
+  </nav>
+
+  <article>
+    <!-- 1 -->
+    <section id="before">
+      <h2><span class="no">1</span>시작 전에</h2>
+      <p class="one">무엇이 있어야 하는지, 그리고 학교 PC 에서 먼저 볼 것.</p>
+      <table>
+        <tr><th>필요한 것</th><th>설명</th></tr>
+        <tr><td>Windows 10·11 PC</td><td>학교 업무용 PC. 관리자 권한은 필요 없습니다.</td></tr>
+        <tr><td>Chrome</td><td>비서는 PC 에 깔린 Chrome 으로 업무포털을 엽니다. 없으면 먼저 설치하세요.</td></tr>
+        <tr><td>업무포털 인증서</td><td>평소 쓰는 교육행정 전자서명 인증서. 비밀번호는 아침에 직접 넣습니다.</td></tr>
+        <tr><td>전북 업무포털</td><td>전북 업무포털(K-에듀파인·4세대 나이스)용입니다. 다른 시·도는 아직 쓸 수 없습니다.</td></tr>
+      </table>
+      <div class="note warn">
+        <b>오래된 학교 PC 라면 먼저 이것부터</b>
+        <ol>
+          <li><b>Windows 업데이트</b>를 끝까지 해 주세요. 업데이트가 밀린 PC 는 설치 파일을 막거나 서명을 확인하지 못합니다. (시작 › 설정 › Windows 업데이트 › <span class="kbd">업데이트 확인</span>)</li>
+          <li><b>백신이 두 개 이상</b> 깔려 있지 않은지 보세요. 개인이 깐 무료 백신(Avast 등)과 학교 백신(V3 등)이 함께 돌면 PC 가 느려지고 프로그램 실행을 막습니다. 자세한 것은 <a href="#antivirus">3장</a>.</li>
+          <li>설치가 끝나면 비서의 <a href="#pc">이 PC 점검</a>으로 메모리·디스크·업데이트·백신 상태를 한눈에 볼 수 있습니다.</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- 2 -->
+    <section id="install">
+      <h2><span class="no">2</span>설치</h2>
+      <p class="one">세 단계면 끝납니다. 이 PC 의 이 사용자에게만 설치됩니다.</p>
+      <h3>① 내려받기</h3>
+      <ol>
+        <li>학교 PC 의 Chrome 에서 <a href="./">홈페이지</a>를 열고 <span class="kbd">내려받기 (Windows)</span>를 누릅니다.</li>
+        <li><code>EdufineAssistant_Setup_….zip</code> 파일이 <span class="path">다운로드</span> 폴더에 받아집니다. 저장소 페이지가 열리면 아래쪽 <b>Assets</b> 에서 그 zip 을 누르세요.</li>
+        <li>Chrome·Edge 가 「일반적으로 다운로드되지 않는 파일」이라며 막으면 <a href="#av-browser">3장 › 브라우저가 막을 때</a>를 보세요.</li>
+      </ol>
+      <h3>② 차단 해제하고 압축 풀기</h3>
+      <ol>
+        <li>받은 zip 파일을 <b>마우스 오른쪽 클릭 › 속성</b>.</li>
+        <li>맨 아래 「보안: 이 파일은 다른 컴퓨터에서 가져왔으므로…」 옆 <b>「차단 해제」</b>에 체크 › <span class="kbd">확인</span>.</li>
+        <li>zip 을 오른쪽 클릭 › <b>압축 풀기</b>(또는 반디집 등으로 풀기).</li>
+      </ol>
+      <p class="small">「차단 해제」 칸이 없으면 이미 풀려 있는 것이니 그냥 압축을 푸세요.</p>
+      <h3>③ 설치하고 켜기</h3>
+      <ol>
+        <li>풀린 폴더의 <code>에듀파인비서_설치_….exe</code> 를 두 번 누릅니다.</li>
+        <li>파란 <b>「Windows의 PC 보호」</b> 창이 뜨면 <span class="kbd">추가 정보</span> → <span class="kbd">실행</span>. 돈을 내고 받는 서명 인증서가 없는 무료 프로그램이라 뜨는 안내이고, 바이러스가 있다는 뜻은 아닙니다.</li>
+        <li>「에듀파인 비서 설치」 창에서 <span class="kbd">설치</span> → 끝나면 <span class="kbd">비서 켜기</span>.</li>
+      </ol>
+      <div class="note">
+        <b>설치되는 곳</b>
+        프로그램은 <code>%LOCALAPPDATA%\Programs\EdufineAssistant</code>, 선생님 자료(설정·기록·로그인용 Chrome 정보)는 <code>%LOCALAPPDATA%\teacherK\EdufineAssistant</code> 에 둡니다. 시작 메뉴와(고르면) 바탕화면에 바로가기가 생깁니다.
+      </div>
+      <details>
+        <summary>받은 파일이 진짜인지 확인하려면 (파일 지문)</summary>
+        <div class="in">
+          <p>홈페이지 내려받기 단추 아래에 <b>파일 지문(SHA-256)</b>이 적혀 있습니다. 받은 zip 의 지문이 같으면 중간에 바뀌지 않은 진짜 파일입니다.</p>
+          <ol>
+            <li>시작 메뉴에서 <code>PowerShell</code> 을 찾아 엽니다.</li>
+            <li>아래 줄을 붙여 넣고(마우스 오른쪽 클릭 = 붙여넣기) <span class="kbd">Enter</span>. 파일 이름의 판 번호는 받은 파일에 맞게 바꾸세요.</li>
+          </ol>
+          <p><code>Get-FileHash $HOME\Downloads\EdufineAssistant_Setup_0.42.1.zip</code></p>
+          <p>나온 <b>Hash</b> 값이 홈페이지의 지문과 같으면 됩니다(대소문자는 상관없음).</p>
+        </div>
+      </details>
+    </section>
+
+    <!-- 3 -->
+    <section id="antivirus">
+      <h2><span class="no">3</span>백신이 막을 때</h2>
+      <p class="one">비서는 악성코드가 없는 깨끗한 프로그램이지만, 새로 나온 무료 프로그램이라 백신이 "처음 보는 프로그램"으로 막을 수 있습니다.</p>
+      <div class="note stop">
+        <b>학교 PC 의 V3 는 지우지 마세요</b>
+        학교·교육청은 업무용 PC 에 지정 백신(대개 안랩 V3)을 쓰도록 보안 규정으로 정해 두는 경우가 많습니다. 지우면 정보보안 점검에서 지적받을 수 있습니다. 백신을 지우거나 끄지 말고, 아래처럼 <b>비서 폴더만 예외로 등록</b>하세요.
+      </div>
+      <h3>왜 막히나요?</h3>
+      <ul>
+        <li>백신은 쓰는 사람이 적고 서명이 없는 새 프로그램을 "평판이 낮다"며 막습니다. 바이러스를 찾았다는 뜻이 아닙니다.</li>
+        <li>예를 들어 안랩 V3 의 「클라우드 평판 기반 실행 차단」은 기본 설정에서 <b>처음 발견된 지 20일 안이고 쓰는 사람이 500명 이하인 파일</b>을 막습니다(<a href="https://help.ahnlab.com/V3_IS_90/ko_kr/set_scan.htm" target="_blank" rel="noopener">안랩 도움말</a>). 새 판이 나온 직후에 특히 잘 막히는 까닭입니다.</li>
+        <li>새 판이 나올 때마다 만든 사람이 안랩·마이크로소프트 등에 오진(오탐) 신고를 합니다. 신고가 받아들여지면 그 판은 더 이상 막히지 않습니다.</li>
+        <li>실제 학교 PC 에서 Windows 기본 백신(Windows 보안)은 비서를 막지 않았습니다. 파란 「PC 보호」 창은 백신이 아니라 SmartScreen 안내입니다(<a href="#install">2장</a>).</li>
+      </ul>
+
+      <h3 id="av-browser">브라우저가 내려받기를 막을 때</h3>
+      <div class="av">
+        <div class="c"><h4>Chrome</h4><ol>
+          <li>아래쪽(또는 오른쪽 위 다운로드 표시)에 「위험할 수 있는 파일」이 뜨면 그 줄의 <b>⋮</b> 또는 화살표.</li>
+          <li><span class="kbd">유지</span> 또는 <span class="kbd">계속</span>.</li></ol></div>
+        <div class="c"><h4>Microsoft Edge</h4><ol>
+          <li>다운로드 창에서 막힌 파일 줄의 <b>…</b>.</li>
+          <li><span class="kbd">유지</span> → <span class="kbd">자세히 표시</span> → <span class="kbd">그래도 유지</span>.</li></ol></div>
+      </div>
+
+      <h3 id="av-exclude">백신별 예외 등록</h3>
+      <p>등록할 곳은 <b>비서 프로그램 폴더 하나</b>입니다. 로컬 AI(<a href="#ai">15장</a>)를 쓴다면 Ollama 폴더도 함께 등록하세요. 폴더 주소는 파일 탐색기 주소창에 그대로 붙여 넣으면 열립니다.</p>
+      <table>
+        <tr><th>무엇</th><th>폴더</th></tr>
+        <tr><td>에듀파인 비서</td><td><code>%LOCALAPPDATA%\Programs\EdufineAssistant</code></td></tr>
+        <tr><td>로컬 AI(Ollama)</td><td><code>%LOCALAPPDATA%\Programs\Ollama</code></td></tr>
+      </table>
+      <p class="small">아직 설치 전이라 폴더가 없으면, 받은 설치 파일(zip 을 푼 폴더)을 먼저 예외로 두고 설치한 뒤 위 폴더를 등록하세요.</p>
+      <div class="av" id="av-cards">
+        <div class="c"><h4>안랩 V3 (Lite · Internet Security)</h4><ol>
+          <li>작업 표시줄 오른쪽 V3 아이콘을 두 번 눌러 V3 를 엽니다.</li>
+          <li>오른쪽 위 <b>환경 설정</b>(톱니) › 왼쪽 목록의 <b>검사 예외 설정</b>.</li>
+          <li><b>검사 예외 사용</b>에 체크 › 「검사 예외 대상 설정」의 <span class="kbd">폴더 추가</span>.</li>
+          <li>위 폴더를 고르고 <span class="kbd">확인</span> › 목록에 들어갔는지 보고 <span class="kbd">적용</span>.</li></ol>
+          <p>실행하자마자 「평판」 때문에 막혔다면, 막힘 알림 창에 허용·예외 단추가 있으면 그것을 누르세요. 학교에서 중앙 관리하는 V3 는 설정이 잠겨 있을 수 있습니다. 그때는 학교 정보 담당 선생님께 「이 폴더 예외 등록」을 부탁하세요. (<a href="https://help.ahnlab.com/V3_IS_90/ko_kr/set_scan_excp.htm" target="_blank" rel="noopener">안랩 도움말: 검사 예외 설정</a>)</p></div>
+        <div class="c"><h4>알약</h4><ol>
+          <li>알약을 열고 오른쪽 위 <b>환경 설정</b>.</li>
+          <li>왼쪽 목록에서 <b>예외 설정</b>(판에 따라 「탐지 제외」) 을 찾아 <span class="kbd">폴더 추가</span>(또는 <span class="kbd">추가</span>).</li>
+          <li>위 폴더를 고르고 <span class="kbd">확인</span> › <span class="kbd">적용</span>.</li></ol>
+          <p>알약 판마다 메뉴 이름이 조금 다릅니다. 「예외」·「제외」가 들어간 항목을 찾으세요.</p></div>
+        <div class="c"><h4>Avast</h4><ol>
+          <li>Avast 를 열고 오른쪽 위 <b>☰ 메뉴</b> › <b>설정</b>.</li>
+          <li><b>일반</b> › <b>예외</b> › <span class="kbd">예외 추가</span> › <span class="kbd">다음</span> › 「위험을 이해합니다」.</li>
+          <li><b>파일/폴더</b> 탭에서 폴더 아이콘 › 위 폴더 › <span class="kbd">확인</span> › <span class="kbd">추가</span>.</li></ol>
+          <p>학교에 지정 백신(V3 등)이 따로 있다면, 개인이 깐 Avast 는 지우는 편이 낫습니다. 백신 둘이 함께 돌면 서로 부딪힙니다. (Windows 설정 › 앱 › 설치된 앱 › Avast › 제거)</p></div>
+        <div class="c"><h4>Windows 보안 (기본 백신)</h4><ol>
+          <li>시작 메뉴에서 <b>Windows 보안</b>을 찾아 열고 › <b>바이러스 및 위협 방지</b>.</li>
+          <li>「바이러스 및 위협 방지 설정」의 <b>설정 관리</b> › 맨 아래 <b>제외</b> › <b>제외 추가 또는 제거</b>.</li>
+          <li><span class="kbd">제외 사항 추가</span> › <b>폴더</b> › 위 폴더.</li></ol>
+          <p>평소에는 필요 없습니다. 비서가 막혔을 때만 하세요.</p></div>
+      </div>
+      <div class="note">
+        <b>하지 말아 주세요</b>
+        <ul>
+          <li>백신의 실시간 검사를 통째로 끄기 — 비서 폴더만 예외로 두면 충분합니다.</li>
+          <li>「다운로드」 폴더나 C 드라이브 전체를 예외로 두기 — 꼭 필요한 폴더만 엽니다.</li>
+        </ul>
+      </div>
+      <p>그래도 막히면 비서 화면 맨 아래 「💡 업무 흐름·오류·의견 보내기」(또는 <a href="https://docs.google.com/forms/d/e/1FAIpQLSdUCnC8kuIMQXorNRwCTgaxs701BuuDfP_lrKgy0Xgsm_upQA/viewform" target="_blank" rel="noopener">의견 보내기 폼</a>)에 <b>어떤 백신이, 어떤 문구로</b> 막았는지 적어 주세요. 그 백신 회사에 오진 신고를 하겠습니다.</p>
+    </section>
+
+    <!-- 4 -->
+    <section id="setup">
+      <h2><span class="no">4</span>처음 설정</h2>
+      <p class="one">처음 켜면 「처음 설정 — 에듀파인 비서」 창이 뜹니다. 학교·선생님마다 다른 값만 묻습니다.</p>
+      <table>
+        <tr><th>칸</th><th>무엇을 적나요</th></tr>
+        <tr><td>학교 이름</td><td>꼭 적어야 합니다. 예) ○○초등학교. 우리 학교가 보낸 공람을 정리 대상에서 빼는 데 씁니다.</td></tr>
+        <tr><td>근무 지역</td><td>예) 전주. 출장 장소에 이 낱말이 있으면 관내로 봅니다.</td></tr>
+        <tr><td>연락처</td><td>숫자만. 육아시간·출장 신청 창에 미리 채웁니다. 비워도 됩니다.</td></tr>
+        <tr><td>꼭 남길 낱말</td><td>예) 5학년, 담임, 방과후. 이 낱말이 든 공람은 「읽지 않아도 될 공람」으로 고르지 않습니다.</td></tr>
+        <tr><td>맡은 업무</td><td>체크하면 그 업무 팩이 바로 켜집니다(<a href="#packs">18장</a>). 지금은 「정보」가 있습니다.</td></tr>
+        <tr><td>자동으로 켜기</td><td>「컴퓨터를 켤 때 비서도 자동으로 켜기」. 처음에는 체크돼 있습니다.</td></tr>
+      </table>
+      <p>창 아래에는 <b>이 PC 점검</b> 결과가 짧게 보입니다. ⚠·⛔ 표시가 있으면 <a href="#pc">16장</a>을 참고하세요. <span class="kbd">저장</span>을 누르면 「이제 업무포털에 로그인해 주세요」가 뜹니다.</p>
+      <p class="small">이 값들은 이 PC 안에만 저장되고, 나중에 ⚙ 설정에서 언제든 바꿀 수 있습니다.</p>
+    </section>
+
+    <!-- 5 -->
+    <section id="morning">
+      <h2><span class="no">5</span>아침에 할 일</h2>
+      <p class="one">인증서 비밀번호 한 번이면 됩니다.</p>
+      <ol>
+        <li>컴퓨터를 켜면 비서도 저절로 켜집니다.</li>
+        <li>비서가 Chrome 으로 업무포털을 열고 <b>인증서 로그인</b> 단추까지 눌러 둡니다. 인증서 창이 앞으로 나옵니다.</li>
+        <li>선생님이 <b>인증서 비밀번호</b>를 넣고 <span class="kbd">확인</span>. 비밀번호는 어디에도 저장하지 않습니다.</li>
+        <li>비서가 K-에듀파인과 나이스를 열고, Chrome 을 작업 표시줄에 숨긴 뒤 공문을 확인합니다.</li>
+      </ol>
+      <div class="note">
+        <b>Chrome 이 안 보여요</b>
+        수업 중 화면에 튀어나오지 않게 숨겨 둔 것입니다. 보고 싶으면 비서 위쪽 <b>🌐 지구본</b> 단추를 누르세요. 실수로 Chrome 을 닫았을 때도 이 단추로 다시 엽니다.
+      </div>
+      <ul>
+        <li>로그인은 오후 3시까지 20분마다 저절로 연장합니다. 끝 시각은 ⚙ 설정 › 확인 시각 › 「로그인 유지 끝」에서 바꿉니다.</li>
+        <li>30분 동안 로그인이 없으면 기다림을 멈춥니다. 나중에 🌐 단추를 누르면 다시 로그인 창을 엽니다.</li>
+        <li>비서는 한 PC 에 하나만 켤 수 있습니다.</li>
+      </ul>
+    </section>
+
+    <!-- 6 -->
+    <section id="screen">
+      <h2><span class="no">6</span>화면 둘러보기</h2>
+      <figure><img src="img/main.png" width="1720" height="1800" alt="에듀파인 비서 첫 화면" loading="lazy"><figcaption>비서 첫 화면 (예시 자료)</figcaption></figure>
+      <h3>위쪽 단추 (왼쪽부터)</h3>
+      <table>
+        <tr><th>단추</th><th>하는 일</th></tr>
+        <tr><td>↻ 코드 새로고침</td><td>만든 사람이 쓰는 단추입니다. 누르지 않으셔도 됩니다.</td></tr>
+        <tr><td>☑ 자가 점검</td><td>로그인·목록·나이스까지 실제로 돌려 봅니다(저장·신청 없음, 1~2분). 문제가 있을 때만.</td></tr>
+        <tr><td>🌐 Chrome</td><td>숨겨 둔 Chrome 을 펼치거나, 닫혔을 때 다시 엽니다.</td></tr>
+        <tr><td>⏻ 자동 종료</td><td>오늘 컴퓨터를 몇 시에 끌지(<a href="#off">14장</a>).</td></tr>
+        <tr><td>☾ 화면 밝기</td><td>어두운 화면 / 밝은 화면.</td></tr>
+        <tr><td>? 사용 안내</td><td>이 안내서를 엽니다.</td></tr>
+        <tr><td>⚙ 설정</td><td>환경설정(<a href="#settings">17장</a>).</td></tr>
+      </table>
+      <p>그 옆의 「● 교장 재실」·「○ 교감 출장」 같은 표시는 나이스 근무상황을 10분마다 읽은 것입니다. 누르면 오늘 근무상황 표가 열립니다.</p>
+      <h3>가운데</h3>
+      <ul>
+        <li><b>숫자 카드 3개</b> — 결재대기·내가 올린 문서·공람대기. 누르면 그 목록으로 내려갑니다.</li>
+        <li><b>도구줄</b> — <span class="kbd">↻ 공문 확인</span>, <span class="kbd">복무 ▾</span>, <span class="kbd">기안 ▾</span>, <span class="kbd">연수 관리</span>, <span class="kbd">🔍 공문 찾기</span>.</li>
+        <li><b>목록</b> — 위에서부터 오늘 나의 일정, 내가 올린 문서, 이달의 업무(업무 팩이 있을 때), 다가오는 기한, 결재대기, 공람대기.</li>
+      </ul>
+      <h3>공문 한 줄</h3>
+      <ul>
+        <li><b>제목</b>을 누르면 에듀파인에서 그 공문이 열립니다.</li>
+        <li><b>줄의 빈 곳</b>을 누르면 아래에 자세히 보기가 열리고, <span class="kbd">AI로 할 일 정리</span>·<span class="kbd">기한 찾기</span>·<span class="kbd">출장 신청 채우기</span>·<span class="kbd">회신 초안 → 기안기</span> 같은 단추가 나옵니다.</li>
+        <li>앞의 <b>체크칸</b>으로 여러 건을 고르면 위에 체크 줄이 생기고, <span class="kbd">문서처리</span>·<span class="kbd">공람 지정</span>·<span class="kbd">공람 완료 처리</span>·<span class="kbd">체크한 공문 요약</span>을 한꺼번에 할 수 있습니다.</li>
+        <li>표시 — <b>새</b>(새로 온 것), <b>★</b>(놓치지 말 것), <b>할일</b>(제출·회신·보고 등), <b>홍보</b>, 업무 팩 이름(내 업무).</li>
+      </ul>
+      <p>맨 아래에는 확인 시각과 <span class="kbd">💡 업무 흐름·오류·의견 보내기</span> 단추가 있습니다.</p>
+    </section>
+
+    <!-- 7 -->
+    <section id="check">
+      <h2><span class="no">7</span>공문 확인·★·기한</h2>
+      <p class="one">켜 두기만 하면 정해진 시각에 저절로 확인합니다.</p>
+      <table>
+        <tr><th>무엇</th><th>언제 (기본)</th></tr>
+        <tr><td>결재대기</td><td>08:50 · 12:10 · 14:40</td></tr>
+        <tr><td>공람대기</td><td>10:00 · 12:00 · 14:00</td></tr>
+        <tr><td>내가 올린 문서</td><td>30분마다</td></tr>
+        <tr><td>교장·교감 재실</td><td>10분마다</td></tr>
+      </table>
+      <p>지금 바로 보고 싶으면 <span class="kbd">↻ 공문 확인</span>. 시각은 ⚙ 설정 › 확인 시각에서 바꿉니다(예: <code>09:30, 13:00</code>).</p>
+      <h3>★ 와 할일 표시</h3>
+      <ul>
+        <li><b>★</b> — 제목에 「★ 놓치지 말 것」 낱말(기본: AI, 인공지능, 디지털, 정보, SW, 공모, 지원사업 등)이 있거나, 업무 팩이 내 업무로 알아본 공문.</li>
+        <li><b>할일</b> — 결재대기 제목에 제출·회신·보고·조사·협조·신청·점검·명단 등이 있는 공문.</li>
+        <li>낱말은 ⚙ 설정 › 표시 낱말·연수에서 고칩니다. <span class="kbd">🔍 자동으로 찾기</span>를 누르면 지난 1년 동안 받은 공문 제목에서 자주 나온 낱말을 권해 줍니다.</li>
+      </ul>
+      <h3>다가오는 기한</h3>
+      <ul>
+        <li>공문을 AI로 정리·요약하거나 <span class="kbd">기한 찾기</span>를 누르면, 공문 속 「…까지」 날짜를 「다가오는 기한」에 모읍니다.</li>
+        <li>D-7·3·1·당일에 근무 시간(7:30~18:00) 안에 알려 드립니다.</li>
+        <li>직접 넣으려면 <span class="kbd">+ 직접 넣기</span>, 끝난 것은 <span class="kbd">완료</span>, 틀린 것은 ✕.</li>
+      </ul>
+    </section>
+
+    <!-- 8 -->
+    <section id="process">
+      <h2><span class="no">8</span>문서처리 · 공람 지정</h2>
+      <p class="one">결재대기 공문 여러 건을 한 번에 처리합니다. 확인 목록을 보신 뒤에만 움직입니다.</p>
+      <figure><img src="img/process.png" width="1672" height="792" alt="문서처리 확인표" loading="lazy"><figcaption>공문마다 과제카드와 공람 대상을 권합니다</figcaption></figure>
+      <h3>문서처리</h3>
+      <ol>
+        <li>결재대기에서 처리할 공문들의 체크칸을 누릅니다.</li>
+        <li>위 체크 줄의 <span class="kbd">문서처리</span>.</li>
+        <li>처음 한 번은 「과제카드 목록이 아직 없습니다」 → <span class="kbd">목록 읽어 오기</span>. 비서가 과제카드 목록만 읽고 닫습니다.</li>
+        <li>「문서처리 N건」 확인표에서 공문마다 <b>과제카드</b>를 확인합니다. 비서가 지난번 고른 것, 업무 팩, 제목 낱말 순서로 권합니다. 직접 고친 것은 다음부터 비슷한 공문에 권합니다.</li>
+        <li><span class="kbd">N건 문서처리</span>를 누르면 비서가 차례로 공문을 열어 카드를 넣고 [문서처리]까지 누릅니다.</li>
+      </ol>
+      <div class="note warn"><b>처리하는 동안 에듀파인을 만지지 마세요</b> 처음 보는 창이 뜨면 그 공문에서 멈추고 알려 드립니다. 나머지는 하지 않습니다.</div>
+      <h3>공람 지정</h3>
+      <ol>
+        <li>공문을 체크하고 <span class="kbd">공람 지정</span>.</li>
+        <li>처음 한 번은 「교직원 명단이 아직 없습니다」 → <span class="kbd">명단 읽어 오기</span>. 이름·직위만 읽어 이 PC 에 둡니다.</li>
+        <li>확인표의 「공람」 칸에서 <b>전체</b> 또는 그룹을 고릅니다. 「모두 같게」로 한 번에 정할 수 있습니다.</li>
+        <li><span class="kbd">N건 공람 지정 + 문서처리</span>. 공람은 문서처리와 함께 보내집니다.</li>
+      </ol>
+      <h3>공람 그룹 만들기</h3>
+      <p>⚙ 설정 › <b>공람</b> 탭 › <span class="kbd">+ 새 그룹</span> → 이름(예: 5학년, 담임, 부장) → 명단에서 체크. 체크하는 즉시 저장됩니다.</p>
+    </section>
+
+    <!-- 9 -->
+    <section id="tidy">
+      <h2><span class="no">9</span>공람대기 정리</h2>
+      <p class="one">연수·모집·홍보처럼 읽지 않아도 될 것 같은 공람을 골라 보여 드립니다. 정리는 보고 나서 합니다.</p>
+      <ol>
+        <li>공람대기에 「🧹 읽지 않아도 될 것 같은 공람 N건」이 뜨면 <span class="kbd">보고 정리하기</span>.</li>
+        <li>모두 체크돼 있습니다. 남길 것은 체크를 빼세요. 줄마다 고른 까닭(예: 제목에 '연수')이 붙어 있고, 제목을 누르면 공문이 열립니다.</li>
+        <li><span class="kbd">체크한 것 공람 완료</span>.</li>
+      </ol>
+      <ul>
+        <li>우리 학교가 보낸 것, 「꼭 남길 낱말」·★ 낱말이 든 것, 내 업무 공문, 「참고」가 든 것은 고르지 않습니다.</li>
+        <li>공람 완료한 공문도 에듀파인 공람함에서 언제든 다시 볼 수 있습니다.</li>
+        <li>손으로 고르려면 공람대기 <span class="kbd">목록 보기 ▾</span> → 「홍보 모두 체크」·「전체 체크」 → <span class="kbd">공람 완료 처리</span>.</li>
+      </ul>
+    </section>
+
+    <!-- 10 -->
+    <section id="bokmu">
+      <h2><span class="no">10</span>복무 신청</h2>
+      <p class="one">나이스 신청 창을 채워 두기만 합니다. <b>[승인요청]은 선생님이 누르세요.</b></p>
+      <figure><img src="img/yuka.png" width="1152" height="704" alt="육아시간 창" loading="lazy" style="max-width:min(576px, 100%)"><figcaption>육아시간 — 오늘 하루, 이번 주, 다음 주</figcaption></figure>
+      <table>
+        <tr><th>메뉴 (복무 ▾)</th><th>고르는 것</th></tr>
+        <tr><td>🍼 육아시간 신청</td><td>기간(오늘 하루·이번 주·다음 주), 시작 시각, 연락처. 여러 날이면 매일 같은 시간으로 냅니다.</td></tr>
+        <tr><td>🚪 조퇴 신청</td><td>날짜, 나가는 시각, 사유, 연락처.</td></tr>
+        <tr><td>🩺 병가 신청</td><td>시작·끝 날짜, 사유, 연락처.</td></tr>
+        <tr><td>🚌 출장 신청</td><td>날짜·시간, 관내/관외, 장소, 여비, 용무, 연락처.</td></tr>
+        <tr><td>📄 개인근무상황 열기</td><td>나이스 복무 › 개인근무상황관리 화면을 엽니다.</td></tr>
+      </table>
+      <h3>공문으로 출장 신청 채우기</h3>
+      <ol>
+        <li>출장 공문을 골라(줄 누르기) <span class="kbd">출장 신청 채우기</span>. 여러 건이면 체크해서 체크 줄의 같은 단추.</li>
+        <li>비서가 공문을 읽어(10~30초) 일시·장소·용무를 뽑아 창에 채워 보여 줍니다. 맞는지 보고 고치세요.</li>
+        <li>출발 시각은 행사 시작에서 가는 시간(관내 30분, 관외 50분)을 뺀 값입니다. ⚙ 설정 › 복무에서 바꿉니다.</li>
+        <li>나이스 창이 채워지면 확인하고 [승인요청]은 직접.</li>
+      </ol>
+      <p class="small">육아시간을 여러 날로 낸 뒤 출장 등으로 쓰지 않게 된 날은 나이스에서 따로 취소해야 합니다. 구글 캘린더를 연결해 두면 출장 일정이 캘린더에도 들어갑니다(<a href="#calendar">19장</a>).</p>
+    </section>
+
+    <!-- 11 -->
+    <section id="gian">
+      <h2><span class="no">11</span>기안</h2>
+      <p class="one">초안을 채워 에듀파인에 저장까지 합니다. <b>[결재요청]·[결재올림]은 선생님이 누르세요.</b></p>
+      <h3>🧾 품의 초안</h3>
+      <ol>
+        <li><span class="kbd">기안 ▾</span> › 품의 초안.</li>
+        <li>제목과 품목(품명·규격·수량·단가)을 적습니다. <span class="kbd">견적서 파일에서</span>를 누르면 견적서 표를 읽어 채웁니다. 예산·사업 공문을 골라 두었다면 <span class="kbd">고른 공문에서</span>.</li>
+        <li>「복사할 지난 품의」를 고릅니다. 예산 과목을 그대로 쓰기 위해서입니다. 목록이 비었으면 「지난 품의 목록 새로 읽기」.</li>
+        <li><span class="kbd">에듀파인에 저장</span> → 저장이 끝나면 에듀파인에서 내용을 확인하고 [결재요청].</li>
+      </ol>
+      <h3>📝 문서 기안</h3>
+      <ol>
+        <li>종류를 고릅니다 — 계획, 결과 보고, 회신·제출, 자유 요청.</li>
+        <li>주제와 메모(들어갈 내용을 짧게)를 적습니다. 목록에서 공문을 골라 두었다면 그 공문을 근거로 관련·일시·장소·기한을 채웁니다.</li>
+        <li><span class="kbd">틀로 초안 만들기</span>(AI 없이) 또는 <span class="kbd">AI로 칸 채우기</span>(메모를 칸에 옮겨 적기만, 10~30초).</li>
+        <li>제목·본문을 고친 뒤 <span class="kbd">기안기에 넣고 임시저장</span>. 결재선·수신·붙임 확인과 [결재올림]은 선생님이 합니다.</li>
+      </ol>
+      <p class="small">공문·메모에 없는 숫자가 들어가면 ⚠ 표시로 알려 드립니다. <code>[ ]</code> 는 비워 둔 칸입니다.</p>
+      <h3>📅 매달 하는 기안</h3>
+      <figure><img src="img/repeat.png" width="1672" height="1358" alt="매달 하는 기안 창" loading="lazy"></figure>
+      <ol>
+        <li>처음 열면 내 문서함 › 기안한 문서에서 지난 기안을 읽습니다(1~2분).</li>
+        <li>매달 같은 꼴로 올린 기안이 목록에 나옵니다. 하나 고르고 <span class="kbd">이번 판 만들기</span>.</li>
+        <li>달·연도는 이번 달로 바꾸고, 날짜·금액·인원이 든 줄은 「⚠ 확인할 줄」로 표시합니다. 꼭 고쳐 주세요.</li>
+        <li><span class="kbd">기안기에 넣고 임시저장</span>. 품의(지출)는 품의 초안으로 넘어갑니다.</li>
+      </ol>
+      <p>공문을 열어 <span class="kbd">회신 초안 → 기안기</span>를 누르면 회신 초안을 AI로 써서 기안기에 임시저장까지 합니다(1~2분).</p>
+    </section>
+
+    <!-- 12 -->
+    <section id="search">
+      <h2><span class="no">12</span>지난 공문 찾기</h2>
+      <p class="one">"작년 그 공문 어디 있더라" 할 때.</p>
+      <figure><img src="img/search.png" width="1672" height="608" alt="공문 찾기 결과" loading="lazy"></figure>
+      <ol>
+        <li><span class="kbd">🔍 공문 찾기</span>.</li>
+        <li>낱말을 적습니다. 띄어 쓰면 모두 들어간 것만 찾습니다(예: <code>정보보안 점검</code>).</li>
+        <li>찾을 곳 — 「접수한 문서」·「공람한 문서」(둘 다 기본). <span class="kbd">찾기</span>.</li>
+        <li>지난 1년 공문의 <b>제목만</b> 읽습니다(1~2분). 결과에서 <span class="kbd">열기</span>.</li>
+      </ol>
+    </section>
+
+    <!-- 13 -->
+    <section id="training">
+      <h2><span class="no">13</span>연수 관리</h2>
+      <p class="one">나이스 연수 이력을 읽어 올해 의무연수를 다 들었는지 맞춰 봅니다.</p>
+      <ul>
+        <li><b>목록·집계</b> — 기간(올해·이번 학년도·직접)별 연수 시간과 목표(기본 60시간). 분야가 틀리면 분야 칸을 누르면 바뀌고 기억합니다. CSV 로 저장할 수 있습니다.</li>
+        <li><b>의무연수 현황</b> — 전북교육연수원 기준으로 ✓ 완료 · ◐ 진행 · ✗ 부족 · ? 확인. 교내 연수처럼 나이스에 안 남는 것은 <span class="kbd">교내 연수 등 직접 표시…</span>.</li>
+        <li><b>이수증</b> — 다운로드 폴더에 이수증·수료증 파일이 생기면 「날짜_과정명」으로 모을지 묻습니다. 처음에 모을 폴더를 고릅니다. 원본은 그대로 둡니다.</li>
+      </ul>
+      <p>위쪽 <span class="kbd">연수원 바로가기 ▾</span>로 전북교육연수포털·전북교육청교육연수원·중앙교육연수원을 엽니다.</p>
+    </section>
+
+    <!-- 14 -->
+    <section id="off">
+      <h2><span class="no">14</span>컴퓨터 자동 종료</h2>
+      <p class="one">일찍 나가 원격으로 일하다가 정한 시각이 되면 학교 PC 를 끕니다. 기본은 꺼져 있습니다.</p>
+      <ul>
+        <li>매일 끄기 — ⚙ 설정 › 자동 종료에서 「매일 자동으로 끄기」, 시각(기본 16:40), 요일, 미리 알림(기본 5분).</li>
+        <li>오늘만 — 위쪽 ⏻ 단추 → 「설정대로 / 오늘만 이 시각 / 오늘은 끄지 않기」.</li>
+        <li>끄기 전에 「컴퓨터를 곧 끕니다」 창이 뜹니다. <span class="kbd">10분 미루기</span> · <span class="kbd">오늘은 안 끄기</span> · <span class="kbd">지금 끄기</span>.</li>
+        <li>저장하지 않은 한글·엑셀 문서가 있으면 Windows 가 멈추고 묻습니다(강제로 끄지 않음).</li>
+      </ul>
+    </section>
+
+    <!-- 15 -->
+    <section id="ai">
+      <h2><span class="no">15</span>로컬 AI</h2>
+      <p class="one">공문 요약·할 일 정리·기안 칸 채우기를 PC 안에서 돌리는 AI 입니다. 없어도 다른 기능은 모두 됩니다.</p>
+      <h3>무엇이 다른가요?</h3>
+      <ul>
+        <li>공문 내용을 인터넷의 AI 서비스로 보내지 않습니다. PC 안의 AI(Ollama)만 씁니다.</li>
+        <li>인터넷은 처음 AI 를 받을 때만 씁니다.</li>
+        <li>그 대신 PC 의 메모리와 디스크를 씁니다. 한 번 쓰는 데 20~40초쯤 걸립니다(학교 PC 기준).</li>
+      </ul>
+      <h3>설치 — 단추 하나</h3>
+      <figure><img src="img/aiinstall.png" width="1468" height="349" alt="로컬 AI 설치 진행 화면" loading="lazy"><figcaption>⚙ 설정 › AI — 받기·설치·모델 받기를 차례로 합니다</figcaption></figure>
+      <ol>
+        <li>⚙ 설정 › <b>AI</b> 탭을 엽니다. 맨 위에 <a href="#pc">이 PC 점검</a> 결과가 먼저 나옵니다.</li>
+        <li><span class="kbd">로컬 AI 설치 (한 번에)</span>.</li>
+        <li>① 프로그램 받기(약 1.6GB) ② 설치 ③ 기본 AI 모델 받기(1.6GB)를 차례로 합니다. 학교 인터넷에서 10~30분 걸릴 수 있고, 그동안 비서의 다른 기능은 그대로 써도 됩니다.</li>
+        <li>「로컬 AI 를 설치했습니다」가 뜨면 끝입니다.</li>
+      </ol>
+      <div class="note">
+        <b>안전하게 받습니다</b>
+        Ollama 공식 주소(ollama.com)에서만 받고, 실행하기 전에 「Ollama Inc.」 디지털 서명이 맞는지 Windows 로 확인합니다. 서명이 다르면 실행하지 않습니다.
+      </div>
+      <h3>필요한 사양</h3>
+      <table>
+        <tr><th>항목</th><th>기준</th></tr>
+        <tr><td>메모리</td><td>8GB 이상(16GB 권장). 기본 모델은 쓰는 동안 약 2GB 를 씁니다.</td></tr>
+        <tr><td>디스크</td><td>남은 공간 10GB 이상. 프로그램과 모델을 합해 약 7GB 를 씁니다.</td></tr>
+      </table>
+      <p>기준에 못 미치면 「이 PC 에는 로컬 AI 를 권하지 않습니다」라고 먼저 묻습니다. 설치는 할 수 있지만 아주 느릴 수 있습니다.</p>
+      <h3>모델 고르기·지우기</h3>
+      <ul>
+        <li><b>EXAONE 3.5 (2.4B)</b> — 기본. LG 가 만든 한국어 모델로 가볍고 빠릅니다.</li>
+        <li><b>Gemma 4 (E2B)</b> — 말투가 조금 더 공문답지만 메모리를 약 8GB 씁니다.</li>
+        <li>각 모델의 <span class="kbd">받기</span>·<span class="kbd">이 모델 쓰기</span>·<span class="kbd">지우기</span>로 관리합니다. AI 를 그만 쓰려면 맨 아래 <span class="kbd">AI 모두 지우기 (Ollama 제거)</span>.</li>
+      </ul>
+      <details>
+        <summary>설치가 안 될 때</summary>
+        <div class="in">
+          <ul>
+            <li><b>「받은 파일을 백신이 막았거나 지운 것 같습니다」</b> — 백신이 Ollama 설치 파일을 막은 것입니다. <a href="#av-exclude">3장 › 백신별 예외 등록</a>에서 Ollama 폴더를 등록한 뒤 다시 누르세요.</li>
+            <li><b>「Windows 가 받은 파일의 서명을 확인하지 못해…」</b> — Windows 업데이트가 오래 밀린 PC 에서 생깁니다. Windows 업데이트 뒤 다시 누르세요.</li>
+            <li><b>「받다가 끊겼습니다」</b> — 학교 인터넷이 잠깐 끊긴 것입니다. 다시 누르면 처음부터 다시 받습니다.</li>
+            <li><b>「AI 모델을 받지 못했습니다」</b> — 프로그램은 설치됐습니다. 설정 › AI 에서 모델의 <span class="kbd">받기</span>만 다시 누르세요.</li>
+            <li><b>「인터넷에 닿지 못했습니다」</b> — 학교망이 큰 파일을 막았을 수 있습니다. 잠시 뒤 다시 누르거나, <span class="kbd">직접 내려받기 (ollama.com)</span>로 받아 설치한 뒤 이 탭을 다시 여세요.</li>
+            <li><b>AI 단추를 눌렀는데 「Ollama 가 켜져 있는지 확인하세요」</b> — 작업 표시줄 오른쪽에 라마 모양 Ollama 아이콘이 있는지 보세요. 없으면 시작 메뉴에서 Ollama 를 켭니다.</li>
+          </ul>
+        </div>
+      </details>
+    </section>
+
+    <!-- 16 -->
+    <section id="pc">
+      <h2><span class="no">16</span>이 PC 점검</h2>
+      <p class="one">PC 가 느리거나 AI 를 깔기 전에, 이 PC 상태를 한눈에 봅니다. 읽어서 보여 주기만 하고 아무것도 바꾸지 않습니다.</p>
+      <figure><img src="img/pccheck.png" width="1468" height="1140" alt="이 PC 점검 화면 예시: 메모리 부족, 업데이트 밀림, 백신 둘" loading="lazy"><figcaption>예시 — 메모리가 모자라고, 업데이트가 밀리고, 백신이 둘 켜진 PC</figcaption></figure>
+      <p>⚙ 설정 › <b>AI</b> 탭 맨 위에 있고, 처음 설정 때도 한 번 보여 드립니다. ✅ 괜찮음 · ⚠️ 살펴볼 것 · ⛔ 고쳐야 할 것.</p>
+      <h3>메모리가 모자랄 때</h3>
+      <ol>
+        <li><span class="kbd">작업 관리자 열기</span> → 「메모리」 열 제목을 눌러 많이 쓰는 순서로 봅니다.</li>
+        <li>지금 쓰지 않는 프로그램은 닫습니다. Chrome 은 탭이 많을수록 메모리를 많이 씁니다.</li>
+        <li>모르는 프로그램은 함부로 지우지 말고 학교 정보 담당 선생님께 여쭤 보세요.</li>
+        <li>컴퓨터를 켤 때 저절로 켜지는 프로그램이 많으면 작업 관리자 › <b>시작 프로그램</b> 탭에서 쓰지 않는 것을 「사용 안 함」으로 바꿀 수 있습니다.</li>
+      </ol>
+      <h3>Windows 업데이트가 밀렸을 때</h3>
+      <p><span class="kbd">Windows 업데이트 열기</span> → <span class="kbd">업데이트 확인</span> → 다 받으면 다시 시작. Windows 보안(기본 백신)의 검사 정보도 함께 새로워집니다. 학교 PC 는 퇴근 전에 걸어 두고 가면 편합니다.</p>
+      <h3>백신이 둘 이상일 때</h3>
+      <ul>
+        <li>백신은 하나만 켜 두는 것이 맞습니다. 둘이 함께 돌면 서로 검사하느라 PC 가 느려지고 프로그램 실행을 막기도 합니다.</li>
+        <li>학교 지정 백신(대개 V3)은 남기고, 개인이 깐 무료 백신(Avast 등)을 지우세요. 무엇이 지정 백신인지 모르면 정보 담당 선생님께 여쭤 보세요.</li>
+        <li>Windows 보안이 「꺼짐」으로 보이는 것은 다른 백신이 켜져 있어서이니 괜찮습니다.</li>
+      </ul>
+      <p class="small">점검 결과는 비서 화면에만 보이고 어디에도 보내지 않습니다.</p>
+    </section>
+
+    <!-- 17 -->
+    <section id="settings">
+      <h2><span class="no">17</span>설정 한눈에</h2>
+      <p class="one">⚙ 단추 → 환경설정. 아래 <span class="kbd">저장</span>을 눌러야 바뀝니다(AI·캘린더·공람·업무 팩 탭은 누르는 즉시 적용).</p>
+      <table>
+        <tr><th>탭</th><th>무엇을 바꾸나요</th></tr>
+        <tr><td>확인 시각</td><td>결재대기·공람 확인 시각, 내가 올린 문서 확인 간격, 로그인 유지 끝, 재실 표시.</td></tr>
+        <tr><td>화면</td><td>밝기, 글자 크기, 항상 위, 자동으로 켜기, Chrome 숨겨 두기.</td></tr>
+        <tr><td>복무</td><td>육아시간 시작 시각·사유·자녀, 연락처, 조퇴·병가 기본값, 출장 관내/관외 낱말과 가는 시간.</td></tr>
+        <tr><td>자동 종료</td><td>매일 끄기, 시각, 요일, 미리 알림.</td></tr>
+        <tr><td>표시 낱말·연수</td><td>★·홍보·할일 낱말, 연수 연간 목표 시간.</td></tr>
+        <tr><td>AI</td><td>이 PC 점검, 로컬 AI 설치, 모델 받기·고르기·지우기.</td></tr>
+        <tr><td>캘린더</td><td>구글 캘린더 연결(<a href="#calendar">19장</a>).</td></tr>
+        <tr><td>공람</td><td>교직원 명단 읽기, 공람 그룹 만들기.</td></tr>
+        <tr><td>업무 팩</td><td>켜 둔 팩, 받을 수 있는 팩, 파일로 추가.</td></tr>
+        <tr><td>업데이트</td><td>지금 판 번호, <span class="kbd">업데이트 확인</span>.</td></tr>
+      </table>
+    </section>
+
+    <!-- 18 -->
+    <section id="packs">
+      <h2><span class="no">18</span>업무 팩</h2>
+      <p class="one">맡은 업무의 요령을 묶은 꾸러미입니다.</p>
+      <figure><img src="img/packs.png" width="1672" height="1022" alt="업무 팩 설정 화면" loading="lazy"></figure>
+      <ul>
+        <li>그 업무에 오는 공문 종류, 달마다 할 일, 기안 틀, 공람 대상을 담습니다.</li>
+        <li>켜 두면 그 업무 공문에 배지·★·할 일이 붙고, 문서처리 때 과제카드·공람을 권하고, 「이달의 업무」에 달력이 뜹니다.</li>
+        <li>⚙ 설정 › 업무 팩에서 켜고 끕니다. 팩은 프로그램과 따로, 저절로 새 판으로 바뀝니다.</li>
+        <li>내 업무 팩이 없으면 <a href="https://docs.google.com/forms/d/e/1FAIpQLSdUCnC8kuIMQXorNRwCTgaxs701BuuDfP_lrKgy0Xgsm_upQA/viewform" target="_blank" rel="noopener">업무 흐름 보내기</a>로 알려 주세요. 팩으로 만들어 모든 선생님 비서에 넣어 드립니다.</li>
+      </ul>
+    </section>
+
+    <!-- 19 -->
+    <section id="calendar">
+      <h2><span class="no">19</span>구글 캘린더 (선택)</h2>
+      <p class="one">출장 신청 창을 채울 때 그 일정을 내 구글 캘린더에도 넣습니다. 처음 한 번 10분쯤 준비가 필요합니다.</p>
+      <details>
+        <summary>연결하는 방법</summary>
+        <div class="in">
+          <ol>
+            <li><a href="https://console.cloud.google.com/" target="_blank" rel="noopener">구글 클라우드 콘솔</a>에서 새 프로젝트를 만듭니다(이름 예: 에듀파인 비서).</li>
+            <li>API 및 서비스 › 라이브러리 › <b>Google Calendar API</b> › <span class="kbd">사용</span>.</li>
+            <li>OAuth 동의 화면 — 외부, 앱 이름 「에듀파인 비서」, 내 구글 계정을 테스트 사용자로 추가한 뒤 <b>앱 게시</b>. 게시하지 않으면 7일마다 다시 연결해야 합니다.</li>
+            <li>사용자 인증 정보 › OAuth 클라이언트 ID › 유형 <b>데스크톱 앱</b> › JSON 다운로드.</li>
+            <li>비서 ⚙ 설정 › 캘린더 › <span class="kbd">앱 등록 파일(JSON) 고르기</span> → <span class="kbd">구글 캘린더 연결</span> → 브라우저에서 로그인 후 <span class="kbd">허용</span>.</li>
+            <li>「Google에서 확인하지 않은 앱」이 뜨면 <b>고급</b> → <b>에듀파인 비서(으)로 이동</b>. 선생님이 직접 만든 앱이라 뜨는 안내입니다.</li>
+          </ol>
+          <p class="small">공문 본문은 보내지 않고 출장 일정(제목·시간·장소·용무)만 넣습니다. 열쇠는 이 PC 에만 암호화해 둡니다.</p>
+        </div>
+      </details>
+    </section>
+
+    <!-- 20 -->
+    <section id="update">
+      <h2><span class="no">20</span>업데이트 · 지우기</h2>
+      <h3>업데이트</h3>
+      <ul>
+        <li>켤 때와 켜 둔 동안 6시간마다 새 판을 확인합니다. 새 판이 있으면 「업데이트할까요?」라고 묻습니다.</li>
+        <li><span class="kbd">업데이트</span>를 누르면 뒤에서 받아 두었다가, 다음에 비서를 켤 때(예: 내일 아침) 새 판으로 바뀝니다. 하던 일이 끊기지 않습니다.</li>
+        <li>로그인 정보·설정·기록은 그대로 남습니다. 바로 확인하려면 ⚙ 설정 › 업데이트 › <span class="kbd">업데이트 확인</span>.</li>
+      </ul>
+      <h3>지우기</h3>
+      <ol>
+        <li>비서를 끕니다.</li>
+        <li>Windows 설정 › 앱 › 설치된 앱 › 「에듀파인 비서」 › <b>제거</b>.</li>
+        <li>「선생님 자료도 지울까요?」에서 <b>아니요</b>(기본)를 고르면 자료를 남겨 두어, 다시 설치하면 이어서 씁니다.</li>
+      </ol>
+      <p class="small">로컬 AI 는 비서와 따로 지웁니다: ⚙ 설정 › AI › <span class="kbd">AI 모두 지우기 (Ollama 제거)</span>.</p>
+    </section>
+
+    <!-- 21 -->
+    <section id="trouble">
+      <h2><span class="no">21</span>문제가 생겼을 때</h2>
+      <h3>「하던 일을 멈췄습니다」 창이 뜨면</h3>
+      <ol>
+        <li>창에 적힌 안내대로 한 번 더 해 봅니다. 대개 에듀파인이 느렸거나 다른 창이 앞에 떠 있던 경우입니다.</li>
+        <li>또 생기면 <span class="kbd">📋 기록 복사</span> → <span class="kbd">의견 보내기</span>를 누르고, 폼의 「어떻게 됐나요?」에 붙여 넣어 주세요. 고쳐서 새 판으로 내보냅니다.</li>
+      </ol>
+      <h3>자주 겪는 일</h3>
+      <details><summary>설치 파일이 받아지지 않아요 / 실행이 안 돼요</summary><div class="in"><p>브라우저나 백신이 막은 것입니다. <a href="#antivirus">3장</a>을 보세요. 파란 「Windows의 PC 보호」 창은 <span class="kbd">추가 정보</span> → <span class="kbd">실행</span>입니다.</p></div></details>
+      <details><summary>Chrome 이 안 보여요 / 실수로 닫았어요</summary><div class="in"><p>비서 위쪽 🌐 단추를 누르세요. 숨겨 둔 Chrome 을 펼치거나 다시 엽니다.</p></div></details>
+      <details><summary>「로그인이 끊겼습니다」라고 나와요</summary><div class="in"><p>업무포털 세션이 끝난 것입니다. 앞으로 나온 인증서 창에 비밀번호를 넣으세요. 오후에 자주 끊기면 ⚙ 설정 › 확인 시각 › 「로그인 유지 끝」을 늦추세요.</p></div></details>
+      <details><summary>「에듀파인 비서가 이미 켜져 있습니다」</summary><div class="in"><p>비서는 한 PC 에 하나만 켜집니다. 작업 표시줄에서 이미 켜진 비서 창을 찾으세요.</p></div></details>
+      <details><summary>PC 가 너무 느려요</summary><div class="in"><p>⚙ 설정 › AI 의 <a href="#pc">이 PC 점검</a>을 보세요. 메모리를 많이 쓰는 프로그램, 밀린 업데이트, 겹친 백신이 대부분의 원인입니다.</p></div></details>
+      <details><summary>AI 단추가 안 돼요</summary><div class="in"><p>로컬 AI 가 없거나 꺼져 있습니다. <a href="#ai">15장</a>을 보세요.</p></div></details>
+      <details><summary>무엇이 문제인지 모르겠어요</summary><div class="in"><p>위쪽 ☑ <b>자가 점검</b>을 누르면 로그인·목록·나이스까지 실제로 돌려 보고 어디서 막히는지 알려 줍니다(저장·신청 없음, 1~2분). 결과를 복사해 의견 보내기에 붙여 주세요.</p></div></details>
+    </section>
+
+    <!-- 22 -->
+    <section id="promise">
+      <h2><span class="no">22</span>비서가 지키는 것</h2>
+      <ul>
+        <li><b>비밀번호는 저장하지 않습니다.</b> 인증서 비밀번호는 아침에 선생님이 직접 넣습니다.</li>
+        <li><b>마지막 단추는 선생님이 누릅니다.</b> 결재올림·승인요청·결재요청은 비서가 누르지 않습니다. 문서처리도 확인 목록을 보신 뒤에만 합니다.</li>
+        <li><b>공문은 PC 밖으로 나가지 않습니다.</b> AI 도 PC 안의 로컬 AI 만 씁니다.</li>
+        <li><b>기록은 이 PC 에만 둡니다.</b> 로그인 정보·설정·기록은 이 PC 의 선생님 사용자 폴더에만 있습니다.</li>
+        <li><b>PC 를 함부로 바꾸지 않습니다.</b> 이 PC 점검은 읽기만 하고, 프로그램을 끄거나 지우지 않습니다.</li>
+      </ul>
+      <p class="small">에듀파인 비서는 현직 교사가 만들어 무료로 나누는 개인 도우미입니다. 교육청·업무포털 운영 기관의 공식 프로그램이 아닙니다.</p>
+    </section>
+  </article>
+</div>
+
+<footer class="foot">
+  <div class="wrap">
+    <span><b>에듀파인 비서</b> · 만든 사람 teacher.K</span>
+    <a href="./">홈페이지</a>
+    <a href="https://github.com/Kang-T/edufine-assistant-release/releases">지난 판 모두 보기</a>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSdUCnC8kuIMQXorNRwCTgaxs701BuuDfP_lrKgy0Xgsm_upQA/viewform" target="_blank" rel="noopener">의견 보내기</a>
+  </div>
+</footer>
+
+<script>
+// 목차: 지금 읽는 장에 표시
+(function () {
+  var links = Array.prototype.slice.call(document.querySelectorAll('#toc a'));
+  var map = {};
+  links.forEach(function (a) { map[a.getAttribute('href').slice(1)] = a; });
+  if (!('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (es) {
+    es.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      links.forEach(function (a) { a.classList.remove('on'); });
+      var a = map[e.target.id]; if (a) a.classList.add('on');
+    });
+  }, { rootMargin: '-80px 0px -70% 0px' });
+  document.querySelectorAll('article section[id]').forEach(function (s) { io.observe(s); });
+})();
+// 인쇄할 때는 접힌 칸을 모두 펼친다
+window.addEventListener('beforeprint', function () { document.querySelectorAll('details').forEach(function (d) { d.dataset.was = d.open ? '1' : ''; d.open = true; }); });
+window.addEventListener('afterprint', function () { document.querySelectorAll('details').forEach(function (d) { d.open = d.dataset.was === '1'; }); });
+</script>
+</body>
+</html>
