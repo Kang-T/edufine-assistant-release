@@ -4,6 +4,8 @@
 
 ## 내려받기
 
+**홈페이지: https://kang-t.github.io/edufine-assistant-release/** — 무엇을 하는 프로그램인지, 화면과 설치 방법을 볼 수 있습니다.
+
 **[최신 판 내려받기 →](https://github.com/Kang-T/edufine-assistant-release/releases/latest)**
 
 위 페이지 아래쪽 **Assets** 에서 `EdufineAssistant_Setup_…zip` 을 누르세요.

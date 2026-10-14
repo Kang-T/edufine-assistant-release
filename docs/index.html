@@ -1,0 +1,503 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>에듀파인 비서</title>
+<meta name="description" content="전북 업무포털(K-에듀파인·4세대 나이스)의 공문 확인·문서처리·복무 신청을 덜어 주는 교사용 무료 PC 프로그램">
+<meta property="og:type" content="website">
+<meta property="og:title" content="에듀파인 비서 — 업무포털 일, 비서가 먼저 챙깁니다">
+<meta property="og:description" content="공문 확인, 문서처리·공람 지정, 육아시간·출장 신청 창 채우기. 전북 교사용 무료 PC 프로그램">
+<meta property="og:image" content="https://kang-t.github.io/edufine-assistant-release/img/og.png">
+<meta property="og:url" content="https://kang-t.github.io/edufine-assistant-release/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="img/icon.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+/* 비서 화면과 같은 노션형 색 */
+:root {
+  --bg: #ffffff; --panel: #f7f7f5; --card: #ffffff; --text: #37352f; --sub: #787774; --faint: #a5a29a; --line: #ededec;
+  --accent: #2383e2; --accent-hover: #1a73cc; --accent-tx: #ffffff; --accent-weak: #e7f0fa; --accent-weak-tx: #1f6fbf;
+  --g-bg: #dbeddb; --g-tx: #1c3829; --y-bg: #fdecc8; --y-tx: #402c1b; --r-bg: #ffe2dd; --r-tx: #5d1715;
+  --shadow: 0 0 0 1px rgba(15,15,15,.05), 0 3px 6px rgba(15,15,15,.06), 0 18px 48px rgba(15,15,15,.12);
+  --font: "Pretendard Variable", Pretendard, "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #191919; --panel: #202020; --card: #232323; --text: #e6e6e4; --sub: #9b9a97; --faint: #6f6e69; --line: #2f2f2f;
+    --accent: #529cca; --accent-hover: #64a9d6; --accent-weak: #233847; --accent-weak-tx: #a8cbe4;
+    --g-bg: #2b3b2e; --g-tx: #b5d8b9; --y-bg: #4a3a22; --y-tx: #f0d39c; --r-bg: #4a2a26; --r-tx: #f2b8ae;
+    --shadow: 0 0 0 1px rgba(255,255,255,.06), 0 18px 48px rgba(0,0,0,.5);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #191919; --panel: #202020; --card: #232323; --text: #e6e6e4; --sub: #9b9a97; --faint: #6f6e69; --line: #2f2f2f;
+  --accent: #529cca; --accent-hover: #64a9d6; --accent-weak: #233847; --accent-weak-tx: #a8cbe4;
+  --g-bg: #2b3b2e; --g-tx: #b5d8b9; --y-bg: #4a3a22; --y-tx: #f0d39c; --r-bg: #4a2a26; --r-tx: #f2b8ae;
+  --shadow: 0 0 0 1px rgba(255,255,255,.06), 0 18px 48px rgba(0,0,0,.5);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+body {
+  margin: 0; background: var(--bg); color: var(--text); font-family: var(--font);
+  font-size: 17px; line-height: 1.7; word-break: keep-all; overflow-wrap: anywhere;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--accent); text-decoration: none; }
+a:hover { color: var(--accent-hover); }
+img { max-width: 100%; height: auto; display: block; }
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+.kbd { display: inline-block; padding: 0 7px; border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 5px; background: var(--card); font-size: .88em; line-height: 1.6; white-space: nowrap; }
+.path { white-space: nowrap; font-weight: 600; }
+
+/* ---------- 위 막대 ---------- */
+.top { position: sticky; top: 0; z-index: 10; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: saturate(1.4) blur(10px); -webkit-backdrop-filter: saturate(1.4) blur(10px); border-bottom: 1px solid transparent; transition: border-color .2s; }
+.top.line { border-bottom-color: var(--line); }
+.top .wrap { display: flex; align-items: center; gap: 28px; height: 60px; }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 17px; color: var(--text); }
+.brand:hover { color: var(--text); }
+.brand img { width: 28px; height: 28px; }
+.nav { display: flex; gap: 22px; margin-left: auto; font-size: 15px; }
+.nav a { color: var(--sub); }
+.nav a:hover { color: var(--text); }
+
+/* ---------- 단추 ---------- */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; border-radius: 8px; font-weight: 600; font-family: inherit; cursor: pointer; border: 1px solid transparent; transition: background .15s, transform .1s; }
+.btn:active { transform: translateY(1px); }
+.btn.primary { background: var(--accent); color: var(--accent-tx); }
+.btn.primary:hover { background: var(--accent-hover); color: var(--accent-tx); }
+.btn.ghost { background: var(--card); color: var(--text); border-color: var(--line); }
+.btn.ghost:hover { background: var(--panel); color: var(--text); }
+.btn.sm { font-size: 14px; padding: 7px 14px; }
+.btn.lg { font-size: 18px; padding: 15px 26px; border-radius: 10px; }
+.btn svg { width: 20px; height: 20px; flex: none; }
+
+/* ---------- 첫 화면 ---------- */
+.hero { padding: 64px 0 40px; }
+.hero .wrap { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 56px; align-items: center; }
+.chip { display: inline-block; font-size: 13.5px; font-weight: 600; color: var(--accent-weak-tx); background: var(--accent-weak); padding: 4px 12px; border-radius: 99px; }
+.hero h1 { font-size: clamp(34px, 4.6vw, 50px); line-height: 1.25; letter-spacing: -0.02em; margin: 18px 0 18px; font-weight: 800; }
+.hero h1 em { font-style: normal; color: var(--accent); }
+.lead { font-size: 18.5px; color: var(--sub); margin: 0 0 30px; }
+.cta { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; }
+.dlmeta { margin-top: 14px; font-size: 14px; color: var(--sub); }
+.dlmeta b { color: var(--text); font-weight: 600; }
+.mobile-note { display: none; margin-top: 18px; padding: 14px 16px; border-radius: 10px; background: var(--y-bg); color: var(--y-tx); font-size: 15px; line-height: 1.6; }
+.mobile-note .url { font-weight: 700; word-break: break-all; }
+.mobile-note button { margin-top: 8px; }
+
+.window { border-radius: 12px; background: #fff; box-shadow: var(--shadow); overflow: hidden; }
+.window .bar { height: 34px; display: flex; align-items: center; gap: 8px; padding: 0 14px; background: #f7f7f5; border-bottom: 1px solid #ededec; font-size: 12.5px; color: #787774; }
+.window .bar img { width: 16px; height: 16px; }
+.window .bar .x { margin-left: auto; letter-spacing: 14px; color: #a5a29a; }
+.window .shot { aspect-ratio: 1720 / 1400; overflow: hidden; -webkit-mask-image: linear-gradient(#000 82%, transparent); mask-image: linear-gradient(#000 82%, transparent); }
+.window .shot img { width: 100%; }
+
+/* ---------- 칸 공통 ---------- */
+section { padding: 72px 0; }
+section.alt { background: var(--panel); }
+.eyebrow { font-size: 14px; font-weight: 700; color: var(--accent); letter-spacing: .02em; margin: 0 0 8px; }
+h2 { font-size: clamp(27px, 3.2vw, 36px); line-height: 1.3; letter-spacing: -0.015em; margin: 0 0 14px; font-weight: 800; }
+.intro { font-size: 18px; color: var(--sub); margin: 0 0 40px; max-width: 720px; }
+
+/* 켜 두기만 하면 */
+.grid3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 22px 22px 20px; }
+.card .ic { font-size: 26px; line-height: 1; margin-bottom: 14px; }
+.card h3 { font-size: 18px; margin: 0 0 6px; line-height: 1.4; }
+.card p { margin: 0; font-size: 15.5px; color: var(--sub); line-height: 1.65; }
+
+/* 누르면 대신 해 주는 일 */
+.feat { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: 48px; align-items: center; padding: 44px 0; }
+.feat + .feat { border-top: 1px solid var(--line); }
+.feat.flip { grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); }
+.feat.flip .txt { order: 2; }
+.feat .num { font-size: 14px; font-weight: 700; color: var(--faint); margin-bottom: 6px; }
+.feat h3 { font-size: 26px; line-height: 1.35; margin: 0 0 10px; letter-spacing: -0.01em; }
+.feat .one { font-size: 17.5px; margin: 0 0 16px; }
+.feat ul { margin: 0; padding: 0; list-style: none; }
+.feat li { position: relative; padding-left: 20px; margin: 7px 0; font-size: 16px; color: var(--sub); line-height: 1.6; }
+.feat li::before { content: ""; position: absolute; left: 4px; top: .68em; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); opacity: .7; }
+.feat .pic img { margin: 0 auto; }
+.feat .pic.narrow img { max-width: 576px; width: 100%; }
+.tag { display: inline-block; vertical-align: 4px; margin-left: 8px; font-size: 12.5px; font-weight: 700; padding: 2px 9px; border-radius: 99px; background: var(--g-bg); color: var(--g-tx); letter-spacing: 0; }
+.mine { display: inline-block; margin-top: 16px; padding: 8px 14px; border-radius: 8px; background: var(--y-bg); color: var(--y-tx); font-size: 15px; }
+
+/* 설치 */
+.steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; counter-reset: s; }
+.step { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 24px; }
+.step .n { width: 32px; height: 32px; border-radius: 50%; background: var(--accent); color: var(--accent-tx); display: grid; place-items: center; font-weight: 700; font-size: 16px; margin-bottom: 14px; }
+.step h3 { font-size: 19px; margin: 0 0 8px; }
+.step p { margin: 0 0 10px; font-size: 15.5px; color: var(--sub); line-height: 1.7; }
+.step p:last-child { margin-bottom: 0; }
+.tip { margin-top: 14px; padding: 12px 14px; border-radius: 8px; background: var(--panel); font-size: 14.5px; color: var(--sub); line-height: 1.65; }
+section.alt .tip { background: var(--bg); }
+.tip b { color: var(--text); }
+
+/* 「차단 해제」 그림 — 파일 속성 창 아래쪽을 본뜸 */
+.props { margin-top: 14px; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); padding: 12px 14px; font-size: 13.5px; color: var(--sub); line-height: 1.55; font-family: "Malgun Gothic", var(--font); }
+.props .row { display: grid; grid-template-columns: 44px 1fr; gap: 8px; }
+.props .k { color: var(--text); }
+.props .cb { display: inline-flex; align-items: center; gap: 6px; margin-top: 8px; color: var(--text); font-weight: 600; outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
+.props .cb i { width: 14px; height: 14px; border-radius: 3px; background: var(--accent); color: #fff; font-style: normal; font-size: 11px; display: grid; place-items: center; }
+
+/* 지키는 것 */
+.grid2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.promise { display: grid; grid-template-columns: 44px 1fr; gap: 16px; background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 22px; }
+.promise .ic { width: 44px; height: 44px; border-radius: 10px; background: var(--g-bg); display: grid; place-items: center; font-size: 22px; }
+.promise h3 { font-size: 18px; margin: 2px 0 6px; }
+.promise p { margin: 0; font-size: 15.5px; color: var(--sub); line-height: 1.65; }
+
+/* 자주 묻는 것 */
+.faq { max-width: 820px; }
+.faq details { border-bottom: 1px solid var(--line); }
+.faq details:first-child { border-top: 1px solid var(--line); }
+.faq summary { list-style: none; cursor: pointer; padding: 18px 40px 18px 0; font-weight: 600; font-size: 17.5px; position: relative; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; position: absolute; right: 6px; top: 50%; transform: translateY(-50%); font-size: 24px; font-weight: 400; color: var(--faint); transition: transform .2s; }
+.faq details[open] summary::after { transform: translateY(-50%) rotate(45deg); }
+.faq .a { padding: 0 0 20px; color: var(--sub); font-size: 16px; line-height: 1.75; }
+.faq .a p { margin: 0 0 8px; }
+.faq .a p:last-child { margin: 0; }
+
+/* 의견 */
+.voice { text-align: center; }
+.voice .intro { margin-left: auto; margin-right: auto; }
+
+/* 아래 */
+footer { border-top: 1px solid var(--line); padding: 32px 0 48px; font-size: 14px; color: var(--sub); }
+footer .wrap { display: flex; flex-wrap: wrap; gap: 10px 24px; align-items: center; }
+footer .links { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-left: auto; }
+footer .links a { color: var(--sub); }
+footer .links a:hover { color: var(--text); }
+footer .note { flex-basis: 100%; color: var(--faint); font-size: 13px; }
+
+.toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%) translateY(20px); opacity: 0; background: var(--text); color: var(--bg); padding: 10px 18px; border-radius: 8px; font-size: 14.5px; transition: .2s; pointer-events: none; }
+.toast.on { opacity: 1; transform: translateX(-50%); }
+
+/* ---------- 좁은 화면 ---------- */
+@media (max-width: 900px) {
+  .hero .wrap, .feat, .feat.flip { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  .feat.flip .txt { order: 0; }
+  .grid3, .steps { grid-template-columns: minmax(0, 1fr); }
+  .nav a:not(.btn) { display: none; }
+}
+@media (max-width: 640px) {
+  .wrap { padding: 0 16px; }
+  body { font-size: 16px; }
+  .hero { padding: 36px 0 24px; }
+  section { padding: 52px 0; }
+  .grid2 { grid-template-columns: minmax(0, 1fr); }
+  .feat { padding: 32px 0; }
+  .feat h3 { font-size: 23px; }
+  .feat .pic.narrow img { max-width: 100%; }
+  .btn.lg { width: 100%; }
+  .mobile-note { display: block; }
+  .promise { grid-template-columns: 1fr; gap: 10px; }
+  footer .links { margin-left: 0; }
+}
+</style>
+</head>
+<body>
+
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="brand" href="#"><img src="img/icon.png" alt="" width="28" height="28">에듀파인 비서</a>
+    <nav class="nav">
+      <a href="#features">하는 일</a>
+      <a href="#install">설치</a>
+      <a href="#safety">지키는 것</a>
+      <a href="#faq">자주 묻는 것</a>
+      <a class="btn primary sm js-dl" href="https://github.com/Kang-T/edufine-assistant-release/releases/latest">내려받기</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- 첫 화면 -->
+  <div class="hero">
+    <div class="wrap">
+      <div>
+        <span class="chip">전북 업무포털 · K-에듀파인 · 4세대 나이스</span>
+        <h1>업무포털 일,<br><em>비서가 먼저</em> 챙깁니다</h1>
+        <p class="lead">결재대기·공람대기 확인, 문서처리와 공람 지정, 육아시간·출장 신청 창 채우기까지. 날마다 되풀이하는 업무포털 일을 덜어 주는 교사용 PC 프로그램입니다.</p>
+        <div class="cta">
+          <a class="btn primary lg js-dl" href="https://github.com/Kang-T/edufine-assistant-release/releases/latest">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"/><path d="m7 11 5 5 5-5"/><path d="M5 20h14"/></svg>
+            내려받기 (Windows)
+          </a>
+          <a class="btn ghost lg" href="#install">설치 방법</a>
+        </div>
+        <div class="dlmeta"><b id="ver">최신 판</b> · 무료 · <span id="size">zip 파일</span> · Windows 10·11 · Chrome 필요</div>
+        <div class="mobile-note">
+          PC 에서 쓰는 프로그램입니다. 학교 PC 에서 이 주소를 여세요.<br>
+          <span class="url">kang-t.github.io/edufine-assistant-release</span><br>
+          <button class="btn ghost sm" id="copyUrl" type="button">주소 복사</button>
+        </div>
+      </div>
+      <div class="window" aria-label="에듀파인 비서 첫 화면">
+        <div class="bar"><img src="img/icon.png" alt="">에듀파인 비서<span class="x">— ▢ ✕</span></div>
+        <div class="shot"><img src="img/main.png" width="1720" height="1800" alt="에듀파인 비서 화면: 오늘 나의 일정, 내가 올린 문서, 이달의 업무, 결재대기·공람대기 목록"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 켜 두기만 하면 -->
+  <section id="features">
+    <div class="wrap">
+      <p class="eyebrow">켜 두기만 하면</p>
+      <h2>아침에 인증서 비밀번호 한 번이면 됩니다</h2>
+      <p class="intro">컴퓨터를 켜면 비서도 저절로 켜집니다. 그다음은 비서가 업무포털을 지켜보다가, 볼 것만 골라 한 화면에 모아 둡니다.</p>
+      <div class="grid3">
+        <div class="card"><div class="ic">🕗</div><h3>정해진 시각에 공문 확인</h3><p>결재대기·공람대기를 하루 세 번(08:50·12:10·14:40) 저절로 확인합니다. 시각은 설정에서 바꿉니다.</p></div>
+        <div class="card"><div class="ic">⭐</div><h3>내 업무 공문 표시</h3><p>맡은 업무 공문에 ★·업무 배지·할 일을 붙이고, 공문 속 '…까지' 기한을 모아 알려 드립니다.</p></div>
+        <div class="card"><div class="ic">📅</div><h3>오늘 나의 일정</h3><p>나이스 근무상황(출장·육아시간)과 내가 올린 문서의 결재 진행을 한눈에 봅니다.</p></div>
+        <div class="card"><div class="ic">🙈</div><h3>수업 화면에 안 뜹니다</h3><p>Chrome 은 작업 표시줄에 숨겨 두고 일합니다. 인증서 비밀번호를 넣을 때만 앞으로 나옵니다.</p></div>
+        <div class="card"><div class="ic">🧹</div><h3>공람대기 정리</h3><p>연수·모집·홍보처럼 읽지 않아도 될 것 같은 공람을 골라 보여 드립니다. 정리는 보고 나서 합니다.</p></div>
+        <div class="card"><div class="ic">🎓</div><h3>연수 관리</h3><p>나이스 연수 이력을 읽어 올해 의무연수를 다 들었는지 맞춰 봅니다.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 누르면 대신 해 주는 일 -->
+  <section class="alt">
+    <div class="wrap">
+      <p class="eyebrow">누르면 대신 해 주는 일</p>
+      <h2>여러 번 누르던 것을 한 번에</h2>
+      <p class="intro">비서가 업무포털 화면을 대신 열고 채웁니다. 마지막 단추는 늘 선생님이 누릅니다.</p>
+
+      <div class="feat">
+        <div class="txt">
+          <div class="num">01</div>
+          <h3>문서처리 + 공람 지정</h3>
+          <p class="one">결재대기 공문을 여러 건 골라 한 번에 처리합니다.</p>
+          <ul>
+            <li>과제카드와 공람 대상을 비서가 권합니다 — 선생님이 지난번 고른 것, 업무 팩, 제목 낱말 순서로.</li>
+            <li>확인 목록을 보신 뒤에야 공문을 차례로 열어 넣고 [문서처리]까지 누릅니다.</li>
+            <li>공람 그룹(담임, 학년 등)은 교직원 명단에서 골라 만들어 둡니다.</li>
+          </ul>
+        </div>
+        <div class="pic"><img src="img/process.png" width="1672" height="792" alt="공람 지정과 문서처리 창: 공문마다 과제카드와 공람 대상을 추천" loading="lazy"></div>
+      </div>
+
+      <div class="feat flip">
+        <div class="txt">
+          <div class="num">02</div>
+          <h3>복무 신청 창 채우기</h3>
+          <p class="one">나이스 신청 창을 채워 두기만 합니다. [승인요청]은 선생님이 누르세요.</p>
+          <ul>
+            <li>육아시간 — 오늘 하루, 이번 주, 다음 주를 한 번에.</li>
+            <li>조퇴·병가·출장도 같은 방식으로 채웁니다.</li>
+            <li>연락처는 처음 설정에 적어 둔 것으로 미리 채워집니다.</li>
+          </ul>
+        </div>
+        <div class="pic narrow"><img src="img/yuka.png" width="1152" height="704" alt="육아시간 창: 오늘 하루, 이번 주, 다음 주와 시작 시간 고르기" loading="lazy"></div>
+      </div>
+
+      <div class="feat">
+        <div class="txt">
+          <div class="num">03</div>
+          <h3>지난 공문 찾기</h3>
+          <p class="one">"작년 그 공문 어디 있더라" 할 때.</p>
+          <ul>
+            <li>내 문서함의 접수한 문서와 공람완료에서 낱말로 찾습니다.</li>
+            <li>찾은 공문은 [열기] 한 번으로 바로 띄웁니다.</li>
+          </ul>
+        </div>
+        <div class="pic"><img src="img/search.png" width="1672" height="608" alt="공문 찾기 결과: 정보보안 점검 낱말로 찾은 공문 3건" loading="lazy"></div>
+      </div>
+
+      <div class="feat flip">
+        <div class="txt">
+          <div class="num">04</div>
+          <h3>매달 하는 기안<span class="tag">새 기능</span></h3>
+          <p class="one">지난 기안에서 매달 같은 꼴을 찾아 이번 달 초안을 만듭니다.</p>
+          <ul>
+            <li>내 문서함 › 기안한 문서에서 되풀이되는 기안을 알아봅니다.</li>
+            <li>달은 바꾸고, 날짜·금액·인원이 든 줄은 '확인할 줄'로 표시합니다.</li>
+            <li>기안기에 넣어 [임시저장]까지. 결재선·수신·붙임 확인과 [결재올림]은 선생님이 합니다.</li>
+          </ul>
+        </div>
+        <div class="pic"><img src="img/repeat.png" width="1672" height="1358" alt="매달 하는 기안 창: 지난달 기안으로 이번 달 초안을 만들고 확인할 줄을 표시" loading="lazy"></div>
+      </div>
+
+      <div class="feat">
+        <div class="txt">
+          <div class="num">05</div>
+          <h3>업무 팩</h3>
+          <p class="one">맡은 업무의 요령을 묶은 꾸러미입니다.</p>
+          <ul>
+            <li>그 업무에 오는 공문 종류, 달마다 할 일, 기안 틀, 공람 대상을 담습니다.</li>
+            <li>처음 설정에서 「맡은 업무」를 고르면 바로 켜집니다. 그 업무 공문에 배지와 할 일이 붙고, 문서처리 때 추천이 따라옵니다.</li>
+            <li>팩은 비서가 저절로 새 판으로 바꿉니다. 지금은 「정보」 팩이 있습니다.</li>
+          </ul>
+          <a class="mine" href="https://docs.google.com/forms/d/e/1FAIpQLSdUCnC8kuIMQXorNRwCTgaxs701BuuDfP_lrKgy0Xgsm_upQA/viewform" target="_blank" rel="noopener">내 업무 흐름을 알려 주시면 팩으로 만들어&nbsp;드립니다&nbsp;→</a>
+        </div>
+        <div class="pic"><img src="img/packs.png" width="1672" height="1022" alt="설정의 업무 팩 화면: 켜 둔 정보 업무 팩" loading="lazy"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 설치 -->
+  <section id="install">
+    <div class="wrap">
+      <p class="eyebrow">설치</p>
+      <h2>세 단계면 끝납니다</h2>
+      <p class="intro">관리자 권한이 필요 없습니다. 이 PC 의 이 사용자에게만 설치됩니다.</p>
+      <div class="steps">
+        <div class="step">
+          <div class="n">1</div>
+          <h3>내려받기</h3>
+          <p><a class="js-dl" href="https://github.com/Kang-T/edufine-assistant-release/releases/latest">내려받기</a>를 누르면 zip 파일을 받습니다.</p>
+          <p>저장소 페이지가 열리면 아래쪽 <b>Assets</b> 에서 <span class="path">EdufineAssistant_Setup_….zip</span> 을 누르세요.</p>
+        </div>
+        <div class="step">
+          <div class="n">2</div>
+          <h3>차단 해제하고 풀기</h3>
+          <p>zip 파일 <b>오른쪽 클릭 › 속성</b> › 맨 아래 <b>「차단 해제」</b> 체크 › <span class="kbd">확인</span>. 그다음 압축을 풉니다.</p>
+          <div class="props" aria-hidden="true">
+            <div class="row"><span class="k">보안:</span><span>이 파일은 다른 컴퓨터에서 가져왔으므로 컴퓨터를 보호하기 위해 차단될 수 있습니다.<br><span class="cb"><i>✓</i>차단 해제(K)</span></span></div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="n">3</div>
+          <h3>설치하고 켜기</h3>
+          <p><span class="path">에듀파인비서_설치_….exe</span> › <span class="kbd">설치</span> › <span class="kbd">비서 켜기</span></p>
+          <p>처음에 학교 이름·근무 지역·연락처·맡은 업무를 한 번 여쭙고, 인증서 창이 뜨면 비밀번호를 넣어 로그인합니다.</p>
+        </div>
+      </div>
+      <div class="tip"><b>파란 「Windows의 PC 보호」 창이 뜨면</b> — <span class="kbd">추가 정보</span> → <span class="kbd">실행</span>을 누르세요. 돈을 내고 받는 서명 인증서가 없는 무료 프로그램이라 뜨는 안내이고, 처음 설치할 때만 뜹니다. 2단계에서 「차단 해제」를 했다면 뜨지 않습니다.</div>
+    </div>
+  </section>
+
+  <!-- 지키는 것 -->
+  <section id="safety" class="alt">
+    <div class="wrap">
+      <p class="eyebrow">지키는 것</p>
+      <h2>비서는 여기까지만 합니다</h2>
+      <p class="intro">공문과 복무는 선생님의 일입니다. 비서는 찾고, 열고, 채우는 데까지만 돕습니다.</p>
+      <div class="grid2">
+        <div class="promise"><div class="ic">🔑</div><div><h3>비밀번호는 저장하지 않습니다</h3><p>인증서 비밀번호는 아침에 선생님이 직접 넣습니다. 비서는 어디에도 적어 두지 않습니다.</p></div></div>
+        <div class="promise"><div class="ic">✋</div><div><h3>마지막 단추는 선생님이</h3><p>결재올림·승인요청·결재요청은 늘 선생님이 누릅니다. 문서처리도 확인 목록을 보신 뒤에만 합니다.</p></div></div>
+        <div class="promise"><div class="ic">🏫</div><div><h3>공문은 PC 밖으로 나가지 않습니다</h3><p>공문 내용을 바깥 서버로 보내지 않습니다. AI 요약·초안(선택)도 PC 안에서 도는 로컬 AI 만 씁니다.</p></div></div>
+        <div class="promise"><div class="ic">📁</div><div><h3>기록은 이 PC 에만</h3><p>로그인 정보·설정·기록은 이 PC 의 선생님 사용자 폴더에만 둡니다.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 자주 묻는 것 -->
+  <section id="faq">
+    <div class="wrap">
+      <p class="eyebrow">자주 묻는 것</p>
+      <h2>궁금한 점</h2>
+      <div class="faq">
+        <details>
+          <summary>어느 지역에서 쓸 수 있나요?</summary>
+          <div class="a"><p>전북 업무포털(K-에듀파인·4세대 나이스)용입니다. 다른 시·도는 주소와 화면이 달라 아직 쓸 수 없습니다.</p></div>
+        </details>
+        <details>
+          <summary>무엇이 있어야 하나요?</summary>
+          <div class="a"><p>Windows 10·11 PC, Chrome, 업무포털 인증서면 됩니다. 설치에 관리자 권한은 필요 없습니다.</p></div>
+        </details>
+        <details>
+          <summary>파란 「Windows의 PC 보호」 창은 왜 뜨나요?</summary>
+          <div class="a"><p>새로 나온 프로그램이 돈을 내고 받는 '코드 서명 인증서' 없이 배포되면 Windows 가 한 번 더 묻는 창입니다. 바이러스가 있다는 뜻은 아닙니다.</p><p>zip 파일 속성에서 「차단 해제」를 하고 풀면 뜨지 않고, 떴다면 <span class="kbd">추가 정보</span> → <span class="kbd">실행</span>을 누르면 됩니다. 자동 업데이트 때는 뜨지 않습니다.</p></div>
+        </details>
+        <details>
+          <summary>수업 중에 Chrome 창이 튀어나오지 않나요?</summary>
+          <div class="a"><p>비서는 Chrome 을 작업 표시줄에 숨겨 두고 일합니다. 인증서 비밀번호를 넣어야 할 때, 그리고 선생님이 공문을 열거나 신청 창을 채우라고 할 때만 앞으로 나옵니다. 보고 싶을 때는 비서 위쪽 🌐 단추를 누르세요.</p></div>
+        </details>
+        <details>
+          <summary>새 판은 어떻게 받나요?</summary>
+          <div class="a"><p>켜져 있는 동안 새 판이 나오면 「업데이트할까요?」 하고 묻습니다. <span class="kbd">업데이트</span>를 누르면 받아 두었다가 다음에 켤 때 바뀝니다. 일하는 중에 저절로 꺼지지 않습니다.</p><p>손으로 확인하려면 <span class="path">⚙ 설정 › 업데이트</span>.</p></div>
+        </details>
+        <details>
+          <summary>업무 팩은 어디서 받나요?</summary>
+          <div class="a"><p>처음 설정에서 「맡은 업무」를 고르면 그 업무 팩이 켜집니다. 나중에 <span class="path">⚙ 설정 › 업무 팩</span>에서 켜고 끌 수 있습니다. 팩은 프로그램과 따로, 저절로 새 판으로 바뀝니다.</p><p>아직 팩이 없는 업무는 비서 화면 맨 아래 「💡 업무 흐름·오류·의견 보내기」로 알려 주세요.</p></div>
+        </details>
+        <details>
+          <summary>오류가 나면 어떻게 하나요?</summary>
+          <div class="a"><p>오류 창의 <span class="kbd">기록 복사</span>를 누른 뒤, 비서 화면 맨 아래 「💡 업무 흐름·오류·의견 보내기」에 붙여 주세요. 고쳐서 새 판으로 내보냅니다.</p></div>
+        </details>
+        <details>
+          <summary>지우려면 어떻게 하나요?</summary>
+          <div class="a"><p><span class="path">Windows 설정 › 앱 › 설치된 앱 › 「에듀파인 비서」 › 제거</span>. 로그인 정보·설정·기록은 기본으로 남겨 두어, 다시 설치하면 이어서 씁니다.</p></div>
+        </details>
+        <details>
+          <summary>교육청에서 만든 프로그램인가요?</summary>
+          <div class="a"><p>아닙니다. 현직 교사가 만들어 무료로 나누는 개인 도우미입니다. 업무포털·K-에듀파인·나이스를 운영하는 기관과는 관계가 없습니다. 그래서 결재·승인처럼 중요한 단추는 늘 선생님이 누르도록 만들었습니다.</p></div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- 의견 -->
+  <section class="alt voice">
+    <div class="wrap">
+      <p class="eyebrow">함께 만들기</p>
+      <h2>선생님의 업무 흐름을 알려 주세요</h2>
+      <p class="intro">어떤 공문이 오면 무엇을 하는지 적어 주시면, 업무 팩으로 만들어 모든 선생님 비서에 넣어 드립니다. 오류와 의견도 같은 곳에서 받습니다.</p>
+      <div class="cta" style="justify-content:center">
+        <a class="btn primary lg" href="https://docs.google.com/forms/d/e/1FAIpQLSdUCnC8kuIMQXorNRwCTgaxs701BuuDfP_lrKgy0Xgsm_upQA/viewform" target="_blank" rel="noopener">💡 업무 흐름·오류·의견 보내기</a>
+        <a class="btn ghost lg js-dl" href="https://github.com/Kang-T/edufine-assistant-release/releases/latest">내려받기</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span><b>에듀파인 비서</b> · 만든 사람 teacher.K</span>
+    <span class="links">
+      <a href="https://github.com/Kang-T/edufine-assistant-release/releases">지난 판 모두 보기</a>
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLSdUCnC8kuIMQXorNRwCTgaxs701BuuDfP_lrKgy0Xgsm_upQA/viewform" target="_blank" rel="noopener">의견 보내기</a>
+      <a href="https://github.com/Kang-T/edufine-assistant-release">저장소</a>
+    </span>
+    <span class="note">교사가 만든 개인 도우미 프로그램이며, 교육청·업무포털 운영 기관의 공식 프로그램이 아닙니다.</span>
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// 최신 판 zip 을 바로 받게 — GitHub API 가 막히면(한 시간 60번 한도 등) 저장소 페이지로 그대로 둔다
+(function () {
+  fetch('https://api.github.com/repos/Kang-T/edufine-assistant-release/releases/latest', { headers: { Accept: 'application/vnd.github+json' } })
+    .then(function (r) { return r.ok ? r.json() : Promise.reject(r.status); })
+    .then(function (rel) {
+      var zip = (rel.assets || []).filter(function (a) { return /\.zip$/i.test(a.name); })[0];
+      if (!zip) return;
+      document.querySelectorAll('.js-dl').forEach(function (a) { a.href = zip.browser_download_url; });
+      var v = (rel.tag_name || '').replace(/^v?/, 'v');
+      var d = rel.published_at ? new Date(rel.published_at) : null;
+      document.getElementById('ver').textContent = v + (d ? ' (' + (d.getMonth() + 1) + '월 ' + d.getDate() + '일)' : '');
+      document.getElementById('size').textContent = '약 ' + Math.round(zip.size / 1048576) + 'MB';
+    })
+    .catch(function () {});
+})();
+
+// 위 막대 밑줄
+(function () {
+  var top = document.getElementById('top');
+  var on = function () { top.classList.toggle('line', window.scrollY > 8); };
+  window.addEventListener('scroll', on, { passive: true }); on();
+})();
+
+// 휴대폰으로 열었을 때 주소 복사
+(function () {
+  var b = document.getElementById('copyUrl'), t = document.getElementById('toast');
+  if (!b) return;
+  b.addEventListener('click', function () {
+    var url = 'https://kang-t.github.io/edufine-assistant-release/';
+    var done = function () { t.textContent = '주소를 복사했습니다'; t.classList.add('on'); setTimeout(function () { t.classList.remove('on'); }, 1800); };
+    if (navigator.clipboard) navigator.clipboard.writeText(url).then(done, function () { prompt('이 주소를 복사하세요', url); });
+    else prompt('이 주소를 복사하세요', url);
+  });
+})();
+</script>
+</body>
+</html>
