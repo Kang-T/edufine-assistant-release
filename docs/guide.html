@@ -207,10 +207,9 @@ details .in > :last-child { margin-bottom: 0; }
     <a href="#pc">16. 이 PC 점검</a>
     <a href="#settings">17. 설정 한눈에</a>
     <a href="#packs">18. 업무 팩</a>
-    <a href="#calendar">19. 구글 캘린더</a>
-    <a href="#update">20. 업데이트·지우기</a>
-    <a href="#trouble">21. 문제가 생겼을 때</a>
-    <a href="#promise">22. 비서가 지키는 것</a>
+    <a href="#update">19. 업데이트·지우기</a>
+    <a href="#trouble">20. 문제가 생겼을 때</a>
+    <a href="#promise">21. 비서가 지키는 것</a>
   </nav>
 
   <article>
@@ -500,7 +499,7 @@ details .in > :last-child { margin-bottom: 0; }
         <li>출발 시각은 행사 시작에서 가는 시간(관내 30분, 관외 50분)을 뺀 값입니다. ⚙ 설정 › 복무에서 바꿉니다.</li>
         <li>나이스 창이 채워지면 확인하고 [승인요청]은 직접.</li>
       </ol>
-      <p class="small">육아시간을 여러 날로 낸 뒤 출장 등으로 쓰지 않게 된 날은 나이스에서 따로 취소해야 합니다. 구글 캘린더를 연결해 두면 출장 일정이 캘린더에도 들어갑니다(<a href="#calendar">19장</a>).</p>
+      <p class="small">육아시간을 여러 날로 낸 뒤 출장 등으로 쓰지 않게 된 날은 나이스에서 따로 취소해야 합니다.</p>
     </section>
 
     <!-- 11 -->
@@ -647,7 +646,7 @@ details .in > :last-child { margin-bottom: 0; }
     <!-- 17 -->
     <section id="settings">
       <h2><span class="no">17</span>설정 한눈에</h2>
-      <p class="one">⚙ 단추 → 환경설정. 아래 <span class="kbd">저장</span>을 눌러야 바뀝니다(AI·캘린더·공람·업무 팩 탭은 누르는 즉시 적용).</p>
+      <p class="one">⚙ 단추 → 환경설정. 아래 <span class="kbd">저장</span>을 눌러야 바뀝니다(AI·공람·업무 팩 탭은 누르는 즉시 적용).</p>
       <table>
         <tr><th>탭</th><th>무엇을 바꾸나요</th></tr>
         <tr><td>확인 시각</td><td>결재대기·공람 확인 시각, 내가 올린 문서 확인 간격, 로그인 유지 끝, 재실 표시.</td></tr>
@@ -656,7 +655,6 @@ details .in > :last-child { margin-bottom: 0; }
         <tr><td>자동 종료</td><td>매일 끄기, 시각, 요일, 미리 알림.</td></tr>
         <tr><td>표시 낱말·연수</td><td>★·홍보·할일 낱말, 연수 연간 목표 시간.</td></tr>
         <tr><td>AI</td><td>이 PC 점검, 로컬 AI 설치, 모델 받기·고르기·지우기.</td></tr>
-        <tr><td>캘린더</td><td>구글 캘린더 연결(<a href="#calendar">19장</a>).</td></tr>
         <tr><td>공람</td><td>교직원 명단 읽기, 공람 그룹 만들기.</td></tr>
         <tr><td>업무 팩</td><td>켜 둔 팩, 받을 수 있는 팩, 파일로 추가.</td></tr>
         <tr><td>업데이트</td><td>지금 판 번호, <span class="kbd">업데이트 확인</span>.</td></tr>
@@ -677,28 +675,8 @@ details .in > :last-child { margin-bottom: 0; }
     </section>
 
     <!-- 19 -->
-    <section id="calendar">
-      <h2><span class="no">19</span>구글 캘린더 (선택)</h2>
-      <p class="one">출장 신청 창을 채울 때 그 일정을 내 구글 캘린더에도 넣습니다. 처음 한 번 10분쯤 준비가 필요합니다.</p>
-      <details>
-        <summary>연결하는 방법</summary>
-        <div class="in">
-          <ol>
-            <li><a href="https://console.cloud.google.com/" target="_blank" rel="noopener">구글 클라우드 콘솔</a>에서 새 프로젝트를 만듭니다(이름 예: 에듀파인 비서).</li>
-            <li>API 및 서비스 › 라이브러리 › <b>Google Calendar API</b> › <span class="kbd">사용</span>.</li>
-            <li>OAuth 동의 화면 — 외부, 앱 이름 「에듀파인 비서」, 내 구글 계정을 테스트 사용자로 추가한 뒤 <b>앱 게시</b>. 게시하지 않으면 7일마다 다시 연결해야 합니다.</li>
-            <li>사용자 인증 정보 › OAuth 클라이언트 ID › 유형 <b>데스크톱 앱</b> › JSON 다운로드.</li>
-            <li>비서 ⚙ 설정 › 캘린더 › <span class="kbd">앱 등록 파일(JSON) 고르기</span> → <span class="kbd">구글 캘린더 연결</span> → 브라우저에서 로그인 후 <span class="kbd">허용</span>.</li>
-            <li>「Google에서 확인하지 않은 앱」이 뜨면 <b>고급</b> → <b>에듀파인 비서(으)로 이동</b>. 선생님이 직접 만든 앱이라 뜨는 안내입니다.</li>
-          </ol>
-          <p class="small">공문 본문은 보내지 않고 출장 일정(제목·시간·장소·용무)만 넣습니다. 열쇠는 이 PC 에만 암호화해 둡니다.</p>
-        </div>
-      </details>
-    </section>
-
-    <!-- 20 -->
     <section id="update">
-      <h2><span class="no">20</span>업데이트 · 지우기</h2>
+      <h2><span class="no">19</span>업데이트 · 지우기</h2>
       <h3>업데이트</h3>
       <ul>
         <li>켤 때와 켜 둔 동안 6시간마다 새 판을 확인합니다. 새 판이 있으면 「업데이트할까요?」라고 묻습니다.</li>
@@ -714,9 +692,9 @@ details .in > :last-child { margin-bottom: 0; }
       <p class="small">로컬 AI 는 비서와 따로 지웁니다: ⚙ 설정 › AI › <span class="kbd">AI 모두 지우기 (Ollama 제거)</span>.</p>
     </section>
 
-    <!-- 21 -->
+    <!-- 20 -->
     <section id="trouble">
-      <h2><span class="no">21</span>문제가 생겼을 때</h2>
+      <h2><span class="no">20</span>문제가 생겼을 때</h2>
       <h3>「하던 일을 멈췄습니다」 창이 뜨면</h3>
       <ol>
         <li>창에 적힌 안내대로 한 번 더 해 봅니다. 대개 에듀파인이 느렸거나 다른 창이 앞에 떠 있던 경우입니다.</li>
@@ -732,9 +710,9 @@ details .in > :last-child { margin-bottom: 0; }
       <details><summary>무엇이 문제인지 모르겠어요</summary><div class="in"><p>위쪽 ☑ <b>자가 점검</b>을 누르면 로그인·목록·나이스까지 실제로 돌려 보고 어디서 막히는지 알려 줍니다(저장·신청 없음, 1~2분). 결과를 복사해 의견 보내기에 붙여 주세요.</p></div></details>
     </section>
 
-    <!-- 22 -->
+    <!-- 21 -->
     <section id="promise">
-      <h2><span class="no">22</span>비서가 지키는 것</h2>
+      <h2><span class="no">21</span>비서가 지키는 것</h2>
       <ul>
         <li><b>비밀번호는 저장하지 않습니다.</b> 인증서 비밀번호는 아침에 선생님이 직접 넣습니다.</li>
         <li><b>마지막 단추는 선생님이 누릅니다.</b> 결재올림·승인요청·결재요청은 비서가 누르지 않습니다. 문서처리도 확인 목록을 보신 뒤에만 합니다.</li>
