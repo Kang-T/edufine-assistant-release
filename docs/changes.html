@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>업데이트 소식 — 에듀파인 비서</title>
+<meta name="description" content="에듀파인 비서가 판마다 무엇이 바뀌었는지 — 최신 판이 위에 있습니다">
+<link rel="icon" href="img/icon.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+:root { --bg:#ffffff; --panel:#f7f7f5; --text:#37352f; --sub:#787774; --line:#ededec; --accent:#2383e2; --accent-weak:#e7f0fa; --accent-weak-tx:#1f6fbf;
+  --font:"Pretendard Variable", Pretendard, "Malgun Gothic", "Apple SD Gothic Neo", sans-serif; color-scheme: light; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg:#191919; --panel:#202020; --text:#e6e6e4; --sub:#9b9a97; --line:#2f2f2f;
+  --accent:#529cca; --accent-weak:#233847; --accent-weak-tx:#a8cbe4; color-scheme: dark; } }
+:root[data-theme="dark"] { --bg:#191919; --panel:#202020; --text:#e6e6e4; --sub:#9b9a97; --line:#2f2f2f; --accent:#529cca; --accent-weak:#233847; --accent-weak-tx:#a8cbe4; color-scheme: dark; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--font); font-size: 16px; line-height: 1.7; word-break: keep-all; overflow-wrap: anywhere; }
+a { color: var(--accent); text-decoration: none; }
+.wrap { max-width: 760px; margin: 0 auto; padding: 0 20px; }
+header.top { position: sticky; top: 0; background: var(--bg); border-bottom: 1px solid var(--line); z-index: 5; }
+header.top .wrap { display: flex; align-items: center; gap: 18px; height: 58px; }
+.brand { display: flex; align-items: center; gap: 8px; font-weight: 700; color: var(--text); }
+.brand small { color: var(--sub); font-weight: 500; }
+nav { margin-left: auto; display: flex; gap: 16px; font-size: 15px; }
+h1 { font-size: 28px; margin: 36px 0 6px; }
+.lead { color: var(--sub); margin: 0 0 28px; }
+.rel { border-top: 1px solid var(--line); padding: 18px 0 14px; }
+.rel h2 { font-size: 18px; margin: 0; display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.rel .date { color: var(--sub); font-size: 14px; font-weight: 500; }
+.rel .new { font-size: 12px; font-weight: 600; color: var(--accent-weak-tx); background: var(--accent-weak); border-radius: 99px; padding: 1px 8px; }
+.rel ul { margin: 8px 0 0; padding-left: 20px; }
+.rel li { margin: 2px 0; }
+footer { color: var(--sub); font-size: 13px; border-top: 1px solid var(--line); margin-top: 32px; padding: 20px 0 40px; }
+@media (max-width: 560px) { nav a.hide-sm { display: none; } h1 { font-size: 24px; } }
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="./"><img src="img/icon.png" alt="" width="26" height="26">에듀파인 비서 <small>업데이트 소식</small></a>
+  <nav><a class="hide-sm" href="./">홈페이지</a><a class="hide-sm" href="guide.html">사용 안내</a><a href="https://github.com/Kang-T/edufine-assistant-release/releases/latest">내려받기</a></nav>
+</div></header>
+<main class="wrap">
+  <h1>업데이트 소식</h1>
+  <p class="lead">판마다 무엇이 바뀌었는지 적어 둡니다. 비서는 켤 때와 켜 둔 동안 6시간마다 새 판을 확인해 「업데이트할까요?」 하고 묻습니다.</p>
+  <section class="rel" id="v0.55.8"><h2>v0.55.8 <span class="new">최신</span> <span class="date">2026-11-03</span></h2><ul><li>병지각·병외출 신청: 복무 › 병지각(출근 ~ 도착 시각)·병외출(나가는 ~ 돌아오는 시각) — 나이스 신청 창을 채웁니다. 출근 시각은 설정 › 복무에서</li></ul></section>
+  <section class="rel" id="v0.55.7"><h2>v0.55.7 <span class="date">2026-11-03</span></h2><ul><li>병조퇴 신청: 복무 › 병조퇴 — 날짜와 나가는 시각을 고르면 나이스 신청 창(병가 › 병조퇴)을 채웁니다. [승인요청]은 선생님이</li></ul></section>
+  <section class="rel" id="v0.55.6"><h2>v0.55.6 <span class="date">2026-11-03</span></h2><ul><li>교감(교장) 선생님이 두 분인 학교: 사람별로 재실을 봅니다 — 한 분만 부재면 &#x27;교감 1명 출장&#x27;</li><li>오류가 나면 만든 사람에게 저절로 알립니다(이름·연락처는 가림, 설정 › 업데이트에서 끌 수 있음)</li><li>화면 맨 아래 [🧾 문제 기록 보내기]</li></ul></section>
+  <section class="rel" id="v0.55.4"><h2>v0.55.4 <span class="date">2026-11-03</span></h2><ul><li>업데이트가 중간에 막혀도 비서를 지우지 않습니다(막히면 &#x27;이번에는 못 바꿈&#x27;으로 알리고 지금 판으로 다시 켬)</li><li>hwp→hwpx, xls→xlsx 파일 바꾸기(파일 탐색기 오른쪽 클릭 › 보내기, JB 메신저 쪽지로 바로)</li><li>나의 일정을 달력으로(하루·3일·주·달, 설정에서 기본 보기·토일)</li><li>품의 초안 보강</li><li>감사 미리보기를 업무지침 원문에 맞춤</li></ul></section>
+  <section class="rel" id="v0.53.8"><h2>v0.53.8 <span class="date">2026-10-29</span></h2><ul><li>업데이트가 중간에 끊겨도 비서가 망가지지 않게 설치 방식을 바꿨습니다(새 판을 다 푼 뒤 바꿔 끼움, 진행 막대도 계속 움직임)</li><li>진행 중인 사업: 단계(성립전 결재·편성 반영·물품선정위원회)를 누르면 산출내역·사업관리카드 표를 바로 보여 줍니다</li><li>편성은 1시간마다 확인, 현액 0원이면 &#x27;편성 반영 중&#x27;</li><li>내가 올린 문서에 에듀파인 기안도, 5건 넘으면 펼치기</li></ul></section>
+  <section class="rel" id="v0.53.4"><h2>v0.53.4 <span class="date">2026-10-28</span></h2><ul><li>업무포털이 60분 뒤 로그아웃되지 않게 이어 줍니다 (에듀파인·나이스·포털 세 곳 모두)</li><li>켤 때 Chrome 이 바로 닫혀도 스스로 다시 열고, 위쪽 지구본 단추가 멈춘 비서를 다시 깨웁니다</li></ul></section>
+  <section class="rel" id="v0.52.4"><h2>v0.52.4 <span class="date">2026-10-27</span></h2><ul><li>육아시간·조퇴·병가·출장 신청 창을 채우기 전에 나이스 공지 창을 먼저 닫습니다 (공지 창이 클릭을 가리지 않게)</li></ul></section>
+  <section class="rel" id="v0.52.3"><h2>v0.52.3 <span class="date">2026-10-27</span></h2><ul><li>공람지정·문서처리 때 열려 있는 기안문을 닫지 않고 이어 갑니다</li><li>나이스 로그인을 20분마다 이어 줍니다</li><li>에듀파인 로그인 유지가 16:40까지로</li><li>켤 때 나이스가 30초 빨리 열립니다</li><li>진행 중인 사업(성립전→편성→물품선정위원회) 알림과 위원회 서류 초안</li></ul></section>
+  <section class="rel" id="v0.48.2"><h2>v0.48.2 <span class="date">2026-10-26</span></h2><ul><li>기안 ▾ › 성립전 예산 요구(교부 공문 + 지난 성립전 기안 + 신청서 예산 표로 산출내역까지 채워 임시저장), 받은 공문 붙임 양식을 한짝으로(아는 칸 미리 채움), 숨겨 둔 Chrome 을 작업 표시줄에서 누르면 화면에 뜸, 구글 캘린더 연결 뺌</li></ul></section>
+  <section class="rel" id="v0.44.3"><h2>v0.44.3 <span class="date">2026-10-20</span></h2><ul><li>고친 것: 출장 신청 창이 안 열리던 것</li><li>교장·교감 근무상황 조회 오류. 새 기능: 💰 내 예산(남은 돈</li><li>사업별 자세히</li><li>관련 품의로 새 초안)</li><li>사업 계획서를 넣으면 이번 달</li><li>다음 달 할 일과 품의 초안</li><li>공문으로 채운 창 아래 [근거 보기]</li></ul></section>
+  <section class="rel" id="v0.42.4"><h2>v0.42.4 <span class="date">2026-10-15</span></h2><ul><li>오늘 나의 일정: 출장 줄 아래에 장소·내용. 품의 초안: 지난 품의 품목이 그대로 채워짐. 설정 › AI: 이 PC 점검과 로컬 AI 한 번에 설치. 위쪽 ? 단추로 사용 안내.</li></ul></section>
+  <section class="rel" id="v0.42.1"><h2>v0.42.1 <span class="date">2026-10-14</span></h2><ul><li>품의 초안: 지난 품의를 고르면 품명·규격·수량·단가가 그대로 채워집니다. &#x27;재료&#x27;→&#x27;품목 가져오기&#x27;, 개요 끝맺음 &#x27;원.  끝.&#x27;(두 칸)과 &#x27;품의을(를)&#x27; 결함 고침, &#x27;지난 품의 개요로 바꾸기&#x27;.</li></ul></section>
+  <section class="rel" id="v0.42.0"><h2>v0.42.0 <span class="date">2026-10-14</span></h2><ul><li>업무 팩(맡은 업무 고르기·배지·할 일·이달의 업무·자동 업데이트), 지난 공문 찾기, 매달 하는 기안, 육아시간 주 단위, Chrome 숨겨 두기, 업데이트는 다음에 켤 때 적용, 멈춤 안내 쉬운 말</li></ul></section>
+  <section class="rel" id="v0.37.2"><h2>v0.37.2 <span class="date">2026-10-12</span></h2><ul><li>켤 때 Chrome 이 오류 화면이거나 닫혀도 [Chrome 다시 열기]가 바로 듣게, 포털 오류 화면은 저절로 다시 열기, 설정 › 업데이트 탭(손으로 업데이트 확인)</li></ul></section>
+  <section class="rel" id="v0.37.1"><h2>v0.37.1 <span class="date">2026-10-11</span></h2><ul><li>자동 공람(문서처리 때 전체·그룹 공람, 설정 › 공람에서 교직원 명단으로 그룹), 오늘 나의 일정, 하단 「업무 흐름·오류·의견 보내기」, 다시 켤 때 Chrome 이 비서 창을 덮지 않게</li></ul></section>
+  <section class="rel" id="v0.34.0"><h2>v0.34.0 <span class="date">2026-10-08</span></h2><ul><li>자동 업데이트, ★ 낱말 자동으로 찾기, 컴퓨터 켤 때 자동 시작(기본)</li></ul></section>
+</main>
+<footer><div class="wrap">새 판을 올릴 때마다 저절로 갱신됩니다 (2026-11-03). 교사가 만든 개인 도우미 프로그램이며, 교육청·업무포털 운영 기관의 공식 프로그램이 아닙니다.</div></footer>
+</body>
+</html>
