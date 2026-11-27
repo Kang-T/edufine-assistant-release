@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>자주 묻는 질문 — 업무포털 비서</title>
+<meta name="description" content="설치가 막힐 때, 업데이트, 지원 지역, 자료 지우기, AI 가 없는 PC, 학교 PC 에서 써도 되는지 — 업무포털 비서 자주 묻는 질문">
+<link rel="icon" href="img/icon.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+:root { --bg:#ffffff; --panel:#f7f7f5; --text:#37352f; --sub:#787774; --faint:#a5a29a; --line:#ededec; --accent:#2383e2; --accent-weak:#e7f0fa; --accent-weak-tx:#1f6fbf;
+  --font:"Pretendard Variable", Pretendard, "Malgun Gothic", "Apple SD Gothic Neo", sans-serif; color-scheme: light; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg:#191919; --panel:#202020; --text:#e6e6e4; --sub:#9b9a97; --faint:#6f6e69; --line:#2f2f2f;
+  --accent:#529cca; --accent-weak:#233847; --accent-weak-tx:#a8cbe4; color-scheme: dark; } }
+:root[data-theme="dark"] { --bg:#191919; --panel:#202020; --text:#e6e6e4; --sub:#9b9a97; --faint:#6f6e69; --line:#2f2f2f; --accent:#529cca; --accent-weak:#233847; --accent-weak-tx:#a8cbe4; color-scheme: dark; }
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--font); font-size: 16px; line-height: 1.7; word-break: keep-all; overflow-wrap: anywhere; }
+a { color: var(--accent); text-decoration: none; }
+.wrap { max-width: 760px; margin: 0 auto; padding: 0 20px; }
+header.top { position: sticky; top: 0; background: var(--bg); border-bottom: 1px solid var(--line); z-index: 5; }
+header.top .wrap { display: flex; align-items: center; gap: 18px; height: 58px; }
+.brand { display: flex; align-items: center; gap: 8px; font-weight: 700; color: var(--text); white-space: nowrap; }
+.brand small { color: var(--sub); font-weight: 500; }
+nav { margin-left: auto; display: flex; gap: 16px; font-size: 15px; white-space: nowrap; }
+h1 { font-size: 28px; margin: 36px 0 6px; }
+h2 { font-size: 14px; font-weight: 700; color: var(--accent); letter-spacing: .02em; margin: 32px 0 4px; }
+.lead { color: var(--sub); margin: 0 0 12px; }
+.kbd { display: inline-block; padding: 0 7px; border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 5px; background: var(--bg); font-size: .88em; line-height: 1.6; white-space: nowrap; }
+.path { font-weight: 600; white-space: nowrap; }
+details { border-bottom: 1px solid var(--line); }
+h2 + details { border-top: 1px solid var(--line); }
+summary { list-style: none; cursor: pointer; padding: 14px 36px 14px 0; font-weight: 600; font-size: 17px; position: relative; }
+summary::-webkit-details-marker { display: none; }
+summary::after { content: "+"; position: absolute; right: 4px; top: 50%; transform: translateY(-50%); font-size: 22px; font-weight: 400; color: var(--faint); transition: transform .2s; }
+details[open] summary::after { transform: translateY(-50%) rotate(45deg); }
+.a { padding: 0 0 16px; color: var(--sub); }
+.a p { margin: 0 0 8px; }
+.a p:last-child { margin: 0; }
+.a ul, .a ol { margin: 4px 0 8px; padding-left: 22px; }
+.a b { color: var(--text); }
+footer { color: var(--sub); font-size: 13px; border-top: 1px solid var(--line); margin-top: 40px; padding: 20px 0 40px; }
+footer .links { display: flex; flex-wrap: wrap; gap: 6px 16px; margin-bottom: 8px; }
+footer .links a { color: var(--sub); }
+@media (max-width: 640px) { .wrap { padding: 0 16px; } nav a.hide-sm { display: none; } h1 { font-size: 24px; } summary { font-size: 16px; } }
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="./"><img src="img/icon.png" alt="" width="26" height="26">업무포털 비서 <small>자주 묻는 질문</small></a>
+  <nav><a class="hide-sm" href="./">홈페이지</a><a class="hide-sm" href="guide.html">사용 안내</a><a class="hide-sm" href="privacy.html">개인정보·보안</a><a href="https://github.com/Kang-T/edufine-assistant-release/releases/latest">내려받기</a></nav>
+</div></header>
+<main class="wrap">
+  <h1>자주 묻는 질문</h1>
+  <p class="lead">눌러서 펼쳐 보세요. 찾는 답이 없으면 비서 화면 맨 아래 「💡 업무 흐름·오류·의견 보내기」로 물어 주세요.</p>
+
+  <h2>설치</h2>
+  <details id="blocked">
+    <summary>백신(V3·Avast 등)이 내려받기나 실행을 막아요</summary>
+    <div class="a">
+      <p>새로 나온 무료 프로그램이라 백신이 「처음 보는 프로그램」으로 막는 것입니다. 바이러스가 있다는 뜻은 아닙니다. 예를 들어 V3 는 기본 설정에서 처음 발견된 지 20일 안이고 쓰는 사람이 500명 이하인 파일을 막습니다. 새 판이 나온 직후에 특히 잘 막히는 까닭입니다.</p>
+      <ul>
+        <li><b>학교 PC 의 V3 는 지우거나 끄지 마세요.</b> 비서 폴더만 예외로 등록하면 됩니다. 방법은 <a href="guide.html#antivirus">사용 안내 › 백신이 막을 때</a>에 백신별로 있습니다.</li>
+        <li>학교에서 중앙 관리하는 V3 는 설정이 잠겨 있을 수 있습니다. 그때는 학교 정보 담당 선생님께 「이 폴더 예외 등록」을 부탁하세요.</li>
+        <li>개인이 깐 무료 백신(Avast 등)과 학교 백신이 함께 돌면 서로 부딪힙니다. 하나만 남기세요.</li>
+      </ul>
+      <p>만든 사람이 새 판마다 백신 회사(안랩·마이크로소프트 등)에 오진 신고를 합니다. 신고가 받아들여지면 그 판은 더 이상 막히지 않습니다.</p>
+    </div>
+  </details>
+  <details>
+    <summary>파란 「Windows의 PC 보호」 창이 떠요</summary>
+    <div class="a"><p>코드 서명 인증서 없이 나누는 프로그램이라 Windows 가 한 번 더 묻는 창입니다. zip 파일 속성에서 「차단 해제」를 하고 풀면 뜨지 않습니다. 이미 떴다면 <span class="kbd">추가 정보</span> → <span class="kbd">실행</span>을 누르세요. 자동 업데이트 때는 뜨지 않습니다.</p></div>
+  </details>
+  <details>
+    <summary>관리자 권한이 있어야 하나요?</summary>
+    <div class="a"><p>아니요. 비서와 로컬 AI 모두 이 Windows 사용자 폴더에 깔립니다. Windows 10·11 PC, Chrome, 업무포털 인증서만 있으면 됩니다.</p></div>
+  </details>
+
+  <h2>쓰는 곳</h2>
+  <details id="region">
+    <summary>어느 지역에서 쓸 수 있나요?</summary>
+    <div class="a">
+      <p><b>전북 업무포털을 기준으로 만들고 점검합니다.</b> v0.60.0 부터는 <span class="path">⚙ 설정 › 화면 › 업무포털 시도</span>에서 다른 시도를 고를 수 있습니다. <span class="kbd">찾아보기</span>를 누르면 이 PC 에서 열리는 업무포털로 시도를 추천합니다.</p>
+      <p>다만 시도마다 화면이 조금씩 달라, 전북 말고는 실제 화면에서 다 확인하지 못했습니다. JB 메신저 쪽지처럼 전북에만 있는 기능도 있습니다. 전남은 그곳 선생님이 직접 고쳐 보내 주신 덕분에 쓸 수 있게 됐습니다. 다른 시도에서 안 되는 곳을 알려 주시거나 함께 고치고 싶으시면 의견 폼으로 연락 주세요.</p>
+    </div>
+  </details>
+  <details id="shared">
+    <summary>여러 사람이 함께 쓰는 PC 나 관리자 계정에서 써도 되나요?</summary>
+    <div class="a">
+      <p><b>내 Windows 계정으로 쓰는 내 업무 PC 를 권합니다.</b> 비서의 자료(Chrome 로그인 상태·설정·공문 사본)는 Windows 사용자마다 따로 둡니다. 그래서 여러 사람이 <b>같은 Windows 계정</b>으로 쓰는 PC 라면, 그 계정으로 앉은 다른 사람도 그 자료를 볼 수 있습니다.</p>
+      <p>공용 PC 에서 써야 한다면 다 쓴 뒤 <span class="path">⚙ 설정 › 자료</span>에서 사본을 지우고, 업무포털에서 로그아웃하세요. 관리자(Administrator) 계정일 필요는 없습니다.</p>
+    </div>
+  </details>
+  <details id="allowed">
+    <summary>학교 업무 PC 에 깔아도 되나요?</summary>
+    <div class="a">
+      <p>업무포털 비서는 교육청·업무포털 운영 기관이 만들거나 승인한 프로그램이 아닙니다. 학교마다 업무 PC 에 프로그램을 까는 규정이 다를 수 있으니, 걱정되시면 학교 정보 담당 선생님께 먼저 여쭤 보세요.</p>
+      <p>비서가 무엇을 읽고 무엇을 보내는지는 <a href="privacy.html">개인정보·보안</a>에 모두 적어 두었습니다. 담당자께 이 페이지를 보여 드리면 됩니다.</p>
+    </div>
+  </details>
+  <details>
+    <summary>비서가 밖으로 보내는 것이 있나요?</summary>
+    <div class="a"><p>공문 내용은 보내지 않습니다. 밖으로 나가는 것은 하루 한 번 무작위 익명 번호와 판 번호, 오류로 멈췄을 때의 오류 종류와 코드 위치 정도이고, 둘 다 <span class="path">⚙ 설정 › 업데이트</span>에서 끌 수 있습니다. 하나하나는 <a href="privacy.html#out">개인정보·보안 › 밖으로 나가는 것</a>에 표로 있습니다.</p></div>
+  </details>
+  <details>
+    <summary>비밀번호를 저장하나요?</summary>
+    <div class="a"><p>아니요. 인증서 비밀번호는 아침에 선생님이 인증서 창에 직접 넣습니다. 비서는 [인증서 로그인] 단추까지만 누릅니다. 한 번 로그인하면 퇴근 무렵(기본 16:40)까지 로그인이 끊기지 않게 이어 줍니다.</p></div>
+  </details>
+
+  <h2>업데이트 · 지우기</h2>
+  <details id="update">
+    <summary>새 판은 어떻게 받나요?</summary>
+    <div class="a">
+      <p>비서는 켤 때와 켜 둔 동안 6시간마다 새 판이 있는지 봅니다. 새 판이 있으면 「업데이트할까요?」라고 묻습니다.</p>
+      <ol>
+        <li><span class="kbd">업데이트</span>를 누르면 뒤에서 받아 둡니다. 받은 파일은 지문(SHA-256)을 맞춰 보고, 다르면 버립니다.</li>
+        <li>다음에 비서를 켤 때(예: 내일 아침) 새 판으로 바뀝니다. 하던 일이 끊기지 않습니다.</li>
+        <li>로그인·설정·기록은 그대로 남습니다.</li>
+      </ol>
+      <p>바로 확인하려면 <span class="path">⚙ 설정 › 업데이트 › 업데이트 확인</span>. 무엇이 바뀌었는지는 <a href="changes.html">업데이트 소식</a>에 있습니다.</p>
+    </div>
+  </details>
+  <details id="tidy">
+    <summary>이 PC 에 남은 공문 사본을 지우고 싶어요</summary>
+    <div class="a">
+      <p>공문·붙임 사본은 30일이 지나면 하루 한 번 저절로 지웁니다. 바로 지우려면 <span class="path">⚙ 설정 › 자료</span>에서 지울 것을 확인하고 「지우기」를 그대로 치세요. 되돌릴 수 없지만, 필요하면 비서가 에듀파인에서 다시 읽어 옵니다. 설정·로그인·업무 팩은 지우지 않습니다.</p>
+    </div>
+  </details>
+  <details>
+    <summary>비서를 지우려면 어떻게 하나요?</summary>
+    <div class="a">
+      <p><span class="path">Windows 설정 › 앱 › 설치된 앱 › 「업무포털 비서」 › 제거</span>. 「선생님 자료도 지울까요?」에서 <b>아니요</b>(기본)를 고르면 자료를 남겨 두어, 다시 설치하면 이어서 씁니다. 자료까지 모두 지우려면 <b>예</b>를 고르세요.</p>
+      <p>로컬 AI 는 따로 지웁니다: <span class="path">⚙ 설정 › AI › AI 모두 지우기</span>.</p>
+    </div>
+  </details>
+
+  <h2>AI</h2>
+  <details id="noai">
+    <summary>AI 가 없는 PC 에서도 쓸 수 있나요?</summary>
+    <div class="a">
+      <p>네. 공문 확인, 문서처리·공람 지정, 복무 신청 창 채우기, 기한 알림, 내 예산은 AI 없이 돕니다. 출장 신청처럼 공문에서 칸을 뽑는 일도 먼저 글자 규칙으로 뽑고, 규칙으로 못 뽑은 칸만 AI 에게 묻습니다.</p>
+      <p>AI 가 없으면 요약·초안처럼 글을 새로 쓰는 단추만 쓸 수 없습니다. AI 없이도 더 많은 일을 하도록 고치는 중입니다.</p>
+    </div>
+  </details>
+  <details>
+    <summary>AI 를 깔면 공문이 바깥으로 나가나요?</summary>
+    <div class="a"><p>아니요. 비서는 이 PC 안에서 도는 로컬 AI(Ollama)만 씁니다. 설치는 <span class="path">⚙ 설정 › AI</span>의 <span class="kbd">로컬 AI 설치 (한 번에)</span>를 누르면 됩니다(약 3GB, 10~30분). 메모리·디스크가 넉넉한지는 같은 탭의 「이 PC 점검」에서 먼저 볼 수 있습니다.</p></div>
+  </details>
+
+  <h2>묻기 · 알리기</h2>
+  <details id="ask">
+    <summary>궁금한 점이나 오류는 어디에 알리나요?</summary>
+    <div class="a">
+      <ul>
+        <li><b>의견 단추:</b> 비서 화면 맨 아래 「💡 업무 흐름·오류·의견 보내기」. 판 번호가 미리 채워진 구글 폼이 열립니다. 업무 흐름을 적어 주시면 업무 팩으로 만들어 모든 선생님 비서에 넣어 드립니다.</li>
+        <li><b>문제 기록 보내기:</b> 비서가 이상하면 화면 맨 아래 <span class="kbd">🧾 문제 기록 보내기</span>. 이름·PC 이름·메일·전화를 가린 기록을 먼저 보여 드리고, 복사해서 의견 폼에 붙여 넣으시면 됩니다.</li>
+        <li><b>오픈톡방:</b> 비서를 쓰는 선생님들이 모인 카카오톡 오픈채팅방에서 쓰는 법을 서로 묻고, 새 기능 소식도 나눕니다. <a href="https://open.kakao.com/o/g278Q0Vi" target="_blank" rel="noopener">오픈톡방 들어가기</a></li>
+      </ul>
+      <p>오류로 멈추면 비서가 오류 종류와 코드 위치만 만든 사람에게 저절로 알립니다(<span class="path">⚙ 설정 › 업데이트</span>에서 끌 수 있음).</p>
+    </div>
+  </details>
+  <details>
+    <summary>교육청에서 만든 프로그램인가요?</summary>
+    <div class="a"><p>아닙니다. 현직 교사가 만들어 무료로 나누는 개인 도우미입니다. 업무포털·K-에듀파인·나이스를 운영하는 기관과 관계가 없습니다. 그래서 결재·승인처럼 중요한 단추는 늘 선생님이 누르도록 만들었습니다.</p></div>
+  </details>
+</main>
+<footer><div class="wrap">
+  <div class="links"><a href="./">홈페이지</a><a href="guide.html">사용 안내</a><a href="privacy.html">개인정보·보안</a><a href="changes.html">업데이트 소식</a><a href="https://docs.google.com/forms/d/e/1FAIpQLSdUCnC8kuIMQXorNRwCTgaxs701BuuDfP_lrKgy0Xgsm_upQA/viewform" target="_blank" rel="noopener">의견 보내기</a></div>
+  교사가 만든 개인 도우미 프로그램이며, 교육청·업무포털 운영 기관의 공식 프로그램이 아닙니다.
+</div></footer>
+</body>
+</html>
